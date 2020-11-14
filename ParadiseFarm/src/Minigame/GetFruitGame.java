@@ -31,7 +31,7 @@ public class GetFruitGame extends JPanel implements Runnable {
     private int maxWidthScreen = widthScreen - 117;
     private int minHeightScreen = 0;
     private int maxHeightScreen = heightScreen - 117;
-    private int pTmr;
+//    private int pTmr;
 
     public GetFruitGame() {
         player = new Player("Basket", widthScreen / 2 - 50, heightScreen - 190, this);
