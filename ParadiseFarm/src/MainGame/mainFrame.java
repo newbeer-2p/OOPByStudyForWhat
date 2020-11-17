@@ -5,7 +5,7 @@
  */
 package MainGame;
 
-import Minigame.*;
+import GetFruitGame.GetFruitGame;
 import java.awt.event.*;
 
 /**

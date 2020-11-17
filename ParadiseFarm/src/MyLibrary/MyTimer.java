@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Minigame;
+package MyLibrary;
 
 import java.awt.Font;
 import javax.swing.JLabel;
@@ -12,19 +12,19 @@ import javax.swing.JLabel;
  *
  * @author newbe
  */
-public class Timer implements Runnable {
+public class MyTimer implements Runnable {
 
     private int time, sec;
     private int second;
     private boolean reverse;
     private Thread t = new Thread(this);
 
-    public Timer(int second) {
+    public MyTimer(int second) {
         this.second = second;
         t.start();
     }
 
-    public Timer(int second, boolean reverse) {
+    public MyTimer(int second, boolean reverse) {
         this.time = second;
         this.second = second;
         this.reverse = reverse;

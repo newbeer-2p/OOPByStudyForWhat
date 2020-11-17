@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Minigame;
+package GetFruitGame;
 
+import MyLibrary.*;
 import MainGame.*;
 
 /**
@@ -18,48 +19,37 @@ import java.util.ArrayList;
 public class GetFruitGame extends JPanel implements Runnable {
 
     private Graphics2D g2d;
-    private Player player;
+    private BasketPlayer player;
     private ArrayList<Fruit> fruitDrop = new ArrayList<Fruit>();
     private ArrayList<Fruit> fruitCollect = new ArrayList<Fruit>();
-    private Timer tmr;
+    private MyTimer tmr;
     private Thread t = new Thread(this);
 
-    private int gameTime = 20;
     private int widthScreen = mainFrame.widthScreen;
     private int heightScreen = mainFrame.heightScreen;
     private int minWidthScreen = 0;
     private int maxWidthScreen = widthScreen - 117;
     private int minHeightScreen = 0;
     private int maxHeightScreen = heightScreen - 117;
-    private int pTmr;
+    private String fruitName[] = {"apple", "grape"};
+
+    private int gameTime = 20;
 
     public GetFruitGame() {
-        player = new Player("Basket", widthScreen / 2 - 50, heightScreen - 190, this);
-        tmr = new Timer(gameTime, true);
+        player = new BasketPlayer(widthScreen / 2 - 50, heightScreen - 190, this);
+        tmr = new MyTimer(gameTime, true);
         t.start();
     }
 
     @Override
     public void run() {
-//        while (gameTime != tmr.getSec()) {
-//            if (pTmr == tmr.getSec()) {
-//                addFruit();
-//                pTmr++;
-//
-//            }
-//            try {
-//                Thread.sleep(50);
-//            } catch (InterruptedException ex) {
-//
-//            }
-//        }
         while (true) {
             try {
                 if (gameTime == tmr.getSec()) {
                     break;
                 }
                 addFruit();
-                Thread.sleep((int)(Math.random()*2)*1000);
+                Thread.sleep((int) (Math.random() * 2) * 1000);
             } catch (InterruptedException ex) {
 
             }
@@ -95,7 +85,9 @@ public class GetFruitGame extends JPanel implements Runnable {
     }
 
     public void addFruit() {
-        fruitDrop.add(new Fruit((int) (Math.random() * maxWidthScreen), (int) (Math.random() * 100 + 20), (int) (Math.random() * 100 + 20), this));
+        int randomX = (int) (Math.random() * widthScreen + 20);
+        int randomFriut = (int) (Math.random() * fruitName.length);
+        fruitDrop.add(new Fruit(fruitName[randomFriut]+".png", randomX, this));
     }
 
     public int getGameTime() {
@@ -122,11 +114,11 @@ public class GetFruitGame extends JPanel implements Runnable {
         this.maxWidthScreen = maxWidth;
     }
 
-    public Player getPlayer() {
+    public BasketPlayer getPlayer() {
         return player;
     }
 
-    public void setPlayer(Player player) {
+    public void setPlayer(BasketPlayer player) {
         this.player = player;
     }
 
