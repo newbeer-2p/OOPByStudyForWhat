@@ -5,7 +5,9 @@
  */
 package MainGame;
 
-import GetFruitGame.GetFruitGame;
+import GetFruitGame.*;
+import CatchWormGame.*;
+import java.awt.*;
 import java.awt.event.*;
 
 /**
@@ -14,59 +16,50 @@ import java.awt.event.*;
  */
 import javax.swing.*;
 
-public class mainFrame extends JFrame implements KeyListener, MouseMotionListener {
+public class mainFrame extends JFrame implements ActionListener {
 
     public static int widthScreen = 800;
     public static int heightScreen = 800;
-
-    private GetFruitGame game = new GetFruitGame();
+    private JPanel pn;
+    private JButton btnGame1, btnGame2;
 
     public mainFrame() {
-        add(game);
+
+        pn = new JPanel();
+        btnGame1 = new JButton("Get Fruit Game");
+        btnGame2 = new JButton("Catch Worm Game");
+
+        pn.setLayout(new FlowLayout());
+
+        pn.add(btnGame1);
+        pn.add(btnGame2);
+
+        btnGame1.addActionListener(this);
+        btnGame2.addActionListener(this);
+
+        add(pn);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(widthScreen, heightScreen);
         setLocationRelativeTo(null);
         setVisible(true);
 
-        addKeyListener(this);
-        addMouseMotionListener(this);
     }
 
     @Override
-    public void keyTyped(KeyEvent ke) {
-    }
-
-    @Override
-    public void keyPressed(KeyEvent ke) {
-        int keyCode = ke.getKeyCode();
-        if (keyCode == 37) //Left
-        {
-            game.movePlayer(-1, 0);
-        } else if (keyCode == 38) //Up
-        {
-            game.movePlayer(0, -1);
-        } else if (keyCode == 39) //Right
-        {
-            game.movePlayer(1, 0);
-        } else if (keyCode == 40) //Down
-        {
-            game.movePlayer(0, 1);
+    public void actionPerformed(ActionEvent ae) {
+        JFrame fr = new JFrame();
+        if (ae.getSource().equals(btnGame1)) {
+            
+            fr.add(new GetFruitGame());
+            
+        } else if (ae.getSource().equals(btnGame2)) {
+            fr.add(new CatchWormGame());
         }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent ke) {
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent me) {
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent me) {
-        game.movePlayer(me.getX(), 0);
-
+        fr.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        fr.setSize(widthScreen, heightScreen);
+        fr.setLocationRelativeTo(null);
+        fr.setVisible(true);
     }
 
 }

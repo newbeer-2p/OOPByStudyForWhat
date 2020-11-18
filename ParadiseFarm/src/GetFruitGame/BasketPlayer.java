@@ -5,7 +5,7 @@
  */
 package GetFruitGame;
 
-import MainGame.mainFrame;
+import MainGame.*;
 import MyLibrary.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -24,7 +24,7 @@ public class BasketPlayer implements Runnable {
     private int width;
     private int height;
     private GetFruitGame p;
-    BufferedImage img;
+    private BufferedImage img;
 
     private final static int MOVEMENT = 50;
 
@@ -51,14 +51,12 @@ public class BasketPlayer implements Runnable {
     }
 
     public void move(int horizontal, int vertical) {
-        x += MOVEMENT * horizontal;
-        x = horizontal - 50;
-        if (x < p.getMinWidthScreen()) {
-            x = p.getMinWidthScreen();
-        } else if (x > p.getMaxWidthScreen() - (width/2)) {
-            x = p.getMaxWidthScreen() - (width/2);
-        }
+        x = horizontal - 100;
         p.repaint();
+    }
+    
+    public Rectangle getBounds(){
+        return new Rectangle(x, y, width, height);
     }
 
     public int getMovement() {

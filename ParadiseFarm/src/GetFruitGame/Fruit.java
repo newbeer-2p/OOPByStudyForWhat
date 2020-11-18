@@ -82,11 +82,16 @@ public class Fruit implements Runnable {
 
         }
     }
-
+    
+    public Rectangle getBounds(){
+        return new Rectangle(x, y, width, height);
+    }
+    
     public boolean intersect() {
-        boolean xYes = player.getX() + player.getWidth() / 2 > this.x & player.getX() - player.getWidth() / 2 < this.x;
-        boolean yYes = player.getY() + player.getHeight() / 2 > this.y & player.getY() - player.getHeight() / 2 < this.y;
-        return xYes && yYes;
+//        boolean xYes = player.getX() + player.getWidth() / 2 > this.x & player.getX() - player.getWidth() / 2 < this.x;
+//        boolean yYes = player.getY() + player.getHeight() / 2 > this.y & player.getY() - player.getHeight() / 2 < this.y;
+//        return xYes && yYes;
+        return player.getBounds().intersects(this.getBounds());
     }
 
 }

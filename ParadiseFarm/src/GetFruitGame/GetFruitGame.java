@@ -1,22 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package GetFruitGame;
 
 import MyLibrary.*;
 import MainGame.*;
-
-/**
- *
- * @author newbe
- */
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.util.ArrayList;
 
-public class GetFruitGame extends JPanel implements Runnable {
+public class GetFruitGame extends JPanel implements Runnable, MouseMotionListener {
 
     private Graphics2D g2d;
     private BasketPlayer player;
@@ -24,20 +15,14 @@ public class GetFruitGame extends JPanel implements Runnable {
     private ArrayList<Fruit> fruitCollect = new ArrayList<Fruit>();
     private MyTimer tmr;
     private Thread t = new Thread(this);
-
-    private int widthScreen = mainFrame.widthScreen;
-    private int heightScreen = mainFrame.heightScreen;
-    private int minWidthScreen = 0;
-    private int maxWidthScreen = widthScreen - 117;
-    private int minHeightScreen = 0;
-    private int maxHeightScreen = heightScreen - 117;
     private String fruitName[] = {"apple", "grape"};
 
     private int gameTime = 20;
 
     public GetFruitGame() {
-        player = new BasketPlayer(widthScreen / 2 - 50, heightScreen - 190, this);
+        player = new BasketPlayer(mainFrame.widthScreen / 2 - 50, mainFrame.heightScreen - 190, this);
         tmr = new MyTimer(gameTime, true);
+        addMouseMotionListener(this);
         t.start();
     }
 
@@ -64,7 +49,7 @@ public class GetFruitGame extends JPanel implements Runnable {
             fruitDrop.get(i).paint(g2d);
         }
         g2d.setFont(new Font("Courier New", 1, 26));
-        g2d.drawString("Score: " + fruitCollect.size(), maxWidthScreen - 50, minHeightScreen + 30);
+        g2d.drawString("Score: " + fruitCollect.size(), mainFrame.widthScreen - 167, 30);
         g2d.drawString("Time: " + tmr.getTime(), 10, 30);
     }
 
@@ -76,18 +61,36 @@ public class GetFruitGame extends JPanel implements Runnable {
         fruitDrop.remove(fruit);
     }
 
+    public void addFruit() {
+        int randomX = (int) (Math.random() * (mainFrame.widthScreen - 200) +50);
+        int randomFriut = (int) (Math.random() * fruitName.length);
+        fruitDrop.add(new Fruit(fruitName[randomFriut]+".png", randomX, this));
+    }
+    
+    public void addFruitCollect(Fruit f) {
+        if (!fruitCollect.contains(f)) {
+            fruitCollect.add(f);
+            fruitDrop.remove(f);
+        }
+    }
+    
+    @Override
+    public void mouseDragged(MouseEvent me) {
+        
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent me) {
+        movePlayer(me.getX(), 0);
+
+    }
+    
     public Graphics2D getG2d() {
         return g2d;
     }
 
     public void setG2d(Graphics2D g2d) {
         this.g2d = g2d;
-    }
-
-    public void addFruit() {
-        int randomX = (int) (Math.random() * widthScreen + 20);
-        int randomFriut = (int) (Math.random() * fruitName.length);
-        fruitDrop.add(new Fruit(fruitName[randomFriut]+".png", randomX, this));
     }
 
     public int getGameTime() {
@@ -98,21 +101,6 @@ public class GetFruitGame extends JPanel implements Runnable {
         this.gameTime = gameTime;
     }
 
-    public int getMinWidth() {
-        return minWidthScreen;
-    }
-
-    public void setMinWidth(int minWidth) {
-        this.minWidthScreen = minWidth;
-    }
-
-    public int getMaxWidth() {
-        return maxWidthScreen;
-    }
-
-    public void setMaxWidth(int maxWidth) {
-        this.maxWidthScreen = maxWidth;
-    }
 
     public BasketPlayer getPlayer() {
         return player;
@@ -120,46 +108,6 @@ public class GetFruitGame extends JPanel implements Runnable {
 
     public void setPlayer(BasketPlayer player) {
         this.player = player;
-    }
-
-    public int getMinWidthScreen() {
-        return minWidthScreen;
-    }
-
-    public void setMinWidthScreen(int minWidthScreen) {
-        this.minWidthScreen = minWidthScreen;
-    }
-
-    public int getMaxWidthScreen() {
-        return maxWidthScreen;
-    }
-
-    public void setMaxWidthScreen(int maxWidthScreen) {
-        this.maxWidthScreen = maxWidthScreen;
-    }
-
-    public int getMinHeightScreen() {
-        return minHeightScreen;
-    }
-
-    public void setMinHeightScreen(int minHeightScreen) {
-        this.minHeightScreen = minHeightScreen;
-    }
-
-    public int getMaxHeightScreen() {
-        return maxHeightScreen;
-    }
-
-    public void setMaxHeightScreen(int maxHeightScreen) {
-        this.maxHeightScreen = maxHeightScreen;
-    }
-
-    public void addFruitCollect(Fruit f) {
-        if (!fruitCollect.contains(f)) {
-            fruitCollect.add(f);
-            fruitDrop.remove(f);
-        }
-
     }
 
 }
