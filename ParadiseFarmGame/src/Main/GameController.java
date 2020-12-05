@@ -38,8 +38,8 @@ public class GameController implements MouseListener, MouseMotionListener {
             view.setPage(new HouseView(model.getPlayer(), view));
         } else if (view.getPageNow().equals("FarmView")) {
             view.setPage(new FarmView(model.getPlayer(), view));
-        } else if (view.getPageNow().equals("ShopView")) {
-            view.setPage(new ShopView(model.getPlayer(), view));
+        } else if (view.getPageNow().equals("MarketView")) {
+            view.setPage(new MarketView(model.getPlayer(), view));
         } else if (view.getPageNow().equals("GetFruitGame")) {
             view.setPage(new GetFruitGame(model.getPlayer(), view));
         } else if (view.getPageNow().equals("CatchWormGame")) {
@@ -88,7 +88,7 @@ public class GameController implements MouseListener, MouseMotionListener {
                 view.setPageNow("FarmView");
                 updatePage();
             } else if (mouseBounds.intersects(page.getImgGoRight().getBounds())) {
-                view.setPageNow("ShopView");
+                view.setPageNow("MarketView");
                 updatePage();
             }
 
@@ -153,8 +153,8 @@ public class GameController implements MouseListener, MouseMotionListener {
                 }
                 view.repaint();
             }
-        } else if (view.getPageNow().equals("ShopView")) {
-            ShopView page = (ShopView) view.getPage();
+        } else if (view.getPageNow().equals("MarketView")) {
+            MarketView page = (MarketView) view.getPage();
             if (mouseBounds.intersects(page.getImgGoLeft().getBounds())) {
                 view.setPageNow("FrontHouseView");
                 updatePage();

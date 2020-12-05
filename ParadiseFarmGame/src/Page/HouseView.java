@@ -11,6 +11,7 @@ public class HouseView extends Page {
     private Graphics2D g2d;
     private GameView view;
     private MyImage imgGoDown;
+    private MyImage imgBghouse;
 
     public HouseView(Player player, GameView view) {
         this.view = view;
@@ -19,13 +20,17 @@ public class HouseView extends Page {
         imgGoDown = new MyImage("arrowDown.png");
         imgGoDown.setSize(imgGoDown.getWidth() / 4, imgGoDown.getHeight() / 4);
         imgGoDown.setLocation(GameView.WIDTH / 2 - imgGoDown.getWidth() / 2, GameView.HEIGHT - imgGoDown.getHeight() - 30);
+        
+        imgBghouse= new MyImage("/background/House.png");
+        imgBghouse.setSize(800, 800);
     }
 
     @Override
     public void paint(Graphics2D g2d) {
         this.g2d = g2d;
-
+        g2d.drawImage(imgBghouse.loadImage(), imgBghouse.getX(), imgBghouse.getY(), imgBghouse.getWidth(), imgBghouse.getHeight(), null);
         g2d.drawImage(imgGoDown.loadImage(), imgGoDown.getX(), imgGoDown.getY(), imgGoDown.getWidth(), imgGoDown.getHeight(), null);
+        
     }
 
     public MyImage getImgGoDown() {
