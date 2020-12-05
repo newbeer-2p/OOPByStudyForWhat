@@ -1,10 +1,14 @@
-package Page;
+package Main;
 
+import Page.MenuView;
+import Page.Page;
 import java.awt.*;
 import javax.swing.*;
 
-public class MainView extends JPanel {
-
+public class GameView extends JPanel {
+    
+    private Player player;
+    
     private JFrame frame;
     private Graphics2D g2d;
     private String pageNow = "MenuView";
@@ -13,16 +17,17 @@ public class MainView extends JPanel {
     public final static int WIDTH = 800;
     public final static int HEIGHT = 800;
 
-    public MainView() {
+    public GameView(Player player) {
         frame = new JFrame();
         
         frame.add(this);
-        page = new MenuView(this);
+        page = new MenuView(player, this);
         
         frame.setSize(WIDTH, HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        frame.setResizable(false);
     }
 
     @Override

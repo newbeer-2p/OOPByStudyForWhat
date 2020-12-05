@@ -1,5 +1,6 @@
 package Minigame;
 
+import Main.GameView;
 import MyLibrary.*;
 import Page.*;
 import javax.swing.*;
@@ -24,7 +25,7 @@ public class Fruit implements Runnable {
         this.p = p;
         img = new MyImage(name, x, -200);
         img.setSize(img.getWidth()/4, img.getHeight()/4);
-        player = p.getPlayer();
+        player = p.getBasketPlayer();
         t = new Thread(this);
         t.start();
     }
@@ -37,7 +38,7 @@ public class Fruit implements Runnable {
     public void run() {
         while (!p.isStop()) {
             try {
-                if (canHit || img.getY() > MainView.HEIGHT) {
+                if (canHit || img.getY() > GameView.HEIGHT) {
                     p.removeFruit(this);
                 }
                 if (img.isHit(player.getImg())) {

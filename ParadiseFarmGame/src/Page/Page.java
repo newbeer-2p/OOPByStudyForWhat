@@ -7,10 +7,6 @@ package Page;
 
 import java.awt.Graphics2D;
 
-/**
- *
- * @author newbe
- */
 public abstract class Page {
     public abstract void paint(Graphics2D g2d);
 }

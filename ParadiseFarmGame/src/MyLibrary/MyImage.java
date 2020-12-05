@@ -17,23 +17,17 @@ public class MyImage {
     private BufferedImage img;
     private int width, height;
     private int x, y;
-    private Rectangle bounds;
 
     public MyImage(String imgSource) {
         this(imgSource, 0, 0);
     }
 
     public MyImage(String imgSource, int x, int y) {
-
-        try {
-            File f = new File("Image/" + imgSource);
-            img = ImageIO.read(f);
-            width = img.getWidth();
-            height = img.getHeight();
-            this.x = x;
-            this.y = y;
-        } catch (IOException ex) {
-        }
+        setImg(imgSource);
+        width = img.getWidth();
+        height = img.getHeight();
+        this.x = x;
+        this.y = y;
     }
 
     public void setLocation(int x, int y) {
@@ -50,6 +44,19 @@ public class MyImage {
         return img;
     }
 
+    public void setImg(String imgSource) {
+        try {
+            File f = new File("Image/" + imgSource);
+            if (f.exists()) {
+                img = ImageIO.read(f);
+
+            } else {
+                img = ImageIO.read(new File("Image/none.png"));
+            }
+        } catch (IOException ex) {
+        }
+    }
+
     public boolean isHit(MyImage img) {
         return this.getBounds().intersects(img.getBounds());
     }
@@ -57,8 +64,8 @@ public class MyImage {
     public void getBorder(Graphics2D g2d) {
         g2d.drawRect(x, y, width, height);
     }
-    
-    public Rectangle getBounds(){
+
+    public Rectangle getBounds() {
         return new Rectangle(x, y, width, height);
     }
 
