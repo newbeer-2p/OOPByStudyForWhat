@@ -4,7 +4,7 @@ import Main.*;
 import MyLibrary.MyImage;
 import java.awt.Graphics2D;
 
-public class ShopView extends Page {
+public class MarketView extends Page {
     
     private Player player;
 
@@ -12,7 +12,7 @@ public class ShopView extends Page {
     private GameView view;
     private MyImage imgGoLeft;
 
-    public ShopView(Player player, GameView view) {
+    public MarketView(Player player, GameView view) {
         this.view = view;
         this.player = player;
         
