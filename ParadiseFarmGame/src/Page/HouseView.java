@@ -45,6 +45,7 @@ public class HouseView extends Page {
         g2d.drawImage(imgCalendar.loadImage(), imgCalendar.getX(), imgCalendar.getY(), imgCalendar.getWidth(), imgCalendar.getHeight(), null);
         g2d.drawImage(imgBed.loadImage(), imgBed.getX(), imgBed.getY(), imgBed.getWidth(), imgBed.getHeight(), null);
         g2d.drawImage(imgLamp.loadImage(), imgLamp.getX(), imgLamp.getY(), imgLamp.getWidth(), imgLamp.getHeight(), null);
+        g2d.drawString("DAY", 415, 260);
     }
 
     public MyImage getImgGoDown() {
