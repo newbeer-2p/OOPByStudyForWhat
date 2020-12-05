@@ -7,6 +7,8 @@ import java.util.ArrayList;
 public class Player implements Serializable {
 
     private String name;
+    private double money;
+    private int dayInFarm;
     private ArrayList<Item> inventory;
     private Seed[] inventorySeed = {new Seed("radish", 1), new Seed("carrot", 1), new Seed("tomato", 1)};
     private PlantPlot[] myPlot;
@@ -44,6 +46,18 @@ public class Player implements Serializable {
             inventorySeed[2].addItem(1);
         }
     }
+    
+    public boolean buyItem(Item item, double price){
+        if (money-price >= 0)
+        {
+            money -= price;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     public String getName() {
         return name;
@@ -76,5 +90,23 @@ public class Player implements Serializable {
     public void setMyPlot(PlantPlot[] myPlot) {
         this.myPlot = myPlot;
     }
+
+    public double getMoney() {
+        return money;
+    }
+
+    public void setMoney(double money) {
+        this.money = money;
+    }
+
+    public int getDayInFarm() {
+        return dayInFarm;
+    }
+
+    public void setDayInFarm(int dayInFarm) {
+        this.dayInFarm = dayInFarm;
+    }
+    
+    
 
 }

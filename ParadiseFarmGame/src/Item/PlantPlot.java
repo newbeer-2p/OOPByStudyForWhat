@@ -14,52 +14,47 @@ public class PlantPlot implements Serializable {
     private boolean canGet;
 
     public PlantPlot(int numId) {
-        img = new MyImage("plantcrop.png");
+        img = new MyImage("/plantplot/crop.png");
         this.numId = numId;
     }
 
     public void addSeed(String nameSeed) {
         if (seed == null) {
             seed = new Seed(nameSeed);
-            img.setImg("plantcrop0.png");
+            img.setImg("/plantplot/" + seed.getNameProduct() + "/crop" + level + ".png");
         }
     }
 
     public void watering() {
         watering = true;
-        System.out.println(level);
-        if (level < seed.getLevelMax()) {
-            img.setImg("plantcropwater" + level + ".png");
+        if (seed != null) {
+            img.setImg("/plantplot/" + seed.getNameProduct() + "/cropwater" + level + ".png");
         } else {
-            img.setImg("plantcropwater" + seed.getNameProduct() + ".png");
+            img.setImg("/plantplot/cropwater.png");
         }
     }
 
     public void grow() {
-        if (watering && seed != null && !canGet) {
+        if (watering && seed != null) {
             days++;
-            if ((level + 1) == seed.getLevelMax()) {
-                img.setImg("plantcrop" + seed.getNameProduct() + ".png");
-                level++;
+            if (!canGet && days == seed.getDayToGrow()) {
+                System.out.println(canGet);
                 canGet = true;
-
-            } else if (days % (seed.getDayToGrow() / seed.getLevelMax()) == 0) {
-                img.setImg("plantcrop" + level + ".png");
                 level++;
-            }
 
-            if (days < seed.getDayToGrow()) {
-                img.setImg("plantcrop" + level + ".png");
+            } else if (!canGet && days % (seed.getDayToGrow() / seed.getLevelMax()) == 0) {
+                img.setImg("/plantplot/" + seed.getNameProduct() + "/crop" + level + ".png");
+                level++;
             }
             watering = false;
-        } else if (watering && seed == null) {
-            img.setImg("plantcrop" + level + ".png");
-
+            img.setImg("/plantplot/" + seed.getNameProduct() + "/crop" + level + ".png");
+            System.out.println(level);
         }
+
     }
 
     public Item getProduct() {
-        img.setImg("plantcrop.png");
+        img.setImg("/plantplot/crop.png");
         return seed.getProduct();
     }
 
@@ -118,6 +113,5 @@ public class PlantPlot implements Serializable {
     public void setCanGet(boolean canGet) {
         this.canGet = canGet;
     }
-    
-    
+
 }

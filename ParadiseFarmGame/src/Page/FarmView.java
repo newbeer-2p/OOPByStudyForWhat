@@ -3,6 +3,7 @@ package Page;
 import Item.*;
 import Main.*;
 import MyLibrary.MyImage;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -80,6 +81,10 @@ public class FarmView extends Page {
             for (int j = 0; j < myPlot.length / 5; j++) {
                 myPlot[(i * 4) + j].getImg().setLocation(100 + (i * 100), 250 + (j * 100));
                 g2d.drawImage(myPlot[(i * 4) + j].getImg().loadImage(), myPlot[(i * 4) + j].getImg().getX(), myPlot[(i * 4) + j].getImg().getY(), myPlot[(i * 4) + j].getImg().getWidth(), myPlot[(i * 4) + j].getImg().getHeight(), null);
+                g2d.setColor(Color.BLACK);
+                g2d.setStroke(new BasicStroke(5));
+                g2d.drawRect(myPlot[(i * 4) + j].getImg().getX(), myPlot[(i * 4) + j].getImg().getY(), myPlot[(i * 4) + j].getImg().getWidth(), myPlot[(i * 4) + j].getImg().getHeight());
+//                g2d.drawRoundRect(myPlot[(i * 4) + j].getImg().getX(), myPlot[(i * 4) + j].getImg().getY(), myPlot[(i * 4) + j].getImg().getWidth(), myPlot[(i * 4) + j].getImg().getHeight(), 5, );
             }
         }
         paintMenuBar(g2d);
