@@ -17,12 +17,15 @@ public class Seed extends Item implements Serializable {
         this.nameProduct = name;
 
         if (name.equals("radish")) {
+            this.priceSell = 100;
             this.dayToGrow = 3;
             this.levelMax = 3;
         } else if (name.equals("carrot")) {
+            this.priceSell = 200;
             this.dayToGrow = 6;
             this.levelMax = 3;
         } else if (name.equals("tomato")) {
+            this.priceSell = 300;
             this.dayToGrow = 9;
             this.levelMax = 3;
         }

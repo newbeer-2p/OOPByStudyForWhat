@@ -1,5 +1,6 @@
 package Main;
 
+import MyLibrary.MyImage;
 import Page.*;
 import Page.Page;
 import java.awt.*;
@@ -14,14 +15,20 @@ public class GameView extends JPanel {
     private String pageNow = "MenuView";
     private Page page;
     
+    private MyImage icon;
+    
     public final static int WIDTH = 800;
     public final static int HEIGHT = 800;
 
     public GameView(Player player) {
-        frame = new JFrame();
+        frame = new JFrame("Paradise Farm");
         
         frame.add(this);
         page = new MenuView(player, this);
+        
+        icon = new MyImage("fertilizer.png");
+        
+        frame.setIconImage(icon.loadImage());
         
         frame.setSize(WIDTH, HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -60,10 +67,14 @@ public class GameView extends JPanel {
     public void setPage(Page page) {
         this.page = page;
     }
-    
-    
-    
 
+    public JFrame getFrame() {
+        return frame;
+    }
+
+    public void setFrame(JFrame frame) {
+        this.frame = frame;
+    }
     
 
 }

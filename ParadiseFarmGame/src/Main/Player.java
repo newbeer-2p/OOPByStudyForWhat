@@ -7,20 +7,27 @@ import java.util.ArrayList;
 public class Player implements Serializable {
 
     private String name;
-    private double money;
-    private int dayInFarm;
+    private double money = 400;
+    private int dayInFarm = 1;
     private ArrayList<Item> inventory;
     private Seed[] inventorySeed = {new Seed("radish", 1), new Seed("carrot", 1), new Seed("tomato", 1)};
     private PlantPlot[] myPlot;
+//    private String[] imgPlantPlot;
 
     public Player() {
-        name = "Nong OOP";
+        name = "OOP";
         inventory = new ArrayList<Item>();
+
         myPlot = new PlantPlot[20];
         for (int i = 0; i < myPlot.length; i++) {
             myPlot[i] = new PlantPlot(i);
             myPlot[i].getImg().setSize(100, 100);
         }
+//        imgPlantPlot = new String[20];
+//        for (int i = 0; i < imgPlantPlot.length; i++) {
+//            imgPlantPlot[i] = "/plantplot/crop.png";
+//        }
+
     }
 
     public void addItem(Item item) {
@@ -46,16 +53,21 @@ public class Player implements Serializable {
             inventorySeed[2].addItem(1);
         }
     }
-    
-    public boolean buyItem(Item item, double price){
-        if (money-price >= 0)
-        {
-            money -= price;
-            return true;
+
+    public void buyItem(Seed item) {
+        if (money - item.getPriceSell() >= 0) {
+            money -= item.getPriceSell();
+            addSeed(item.getNameProduct());
         }
-        else
-        {
-            return false;
+    }
+
+    public String showMoney() {
+        if (money >= 1000000) {
+            return ((int) money / 1000000) + "M";
+        } else if (money >= 1000) {
+            return ((int) money / 1000) + "K";
+        } else {
+            return money + "";
         }
     }
 
@@ -90,7 +102,6 @@ public class Player implements Serializable {
     public void setMyPlot(PlantPlot[] myPlot) {
         this.myPlot = myPlot;
     }
-
     public double getMoney() {
         return money;
     }
@@ -106,7 +117,13 @@ public class Player implements Serializable {
     public void setDayInFarm(int dayInFarm) {
         this.dayInFarm = dayInFarm;
     }
-    
-    
+
+//    public String[] getImgPlantPlot() {
+//        return imgPlantPlot;
+//    }
+//
+//    public void setImgPlantPlot(String[] imgPlantPlot) {
+//        this.imgPlantPlot = imgPlantPlot;
+//    }
 
 }

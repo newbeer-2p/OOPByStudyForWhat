@@ -37,8 +37,8 @@ public class GetFruitGame extends Page implements Runnable {
                     stop = true;
                     break;
                 }
-                addFruit();
-                Thread.sleep((int) (Math.random() * 2) * 1000);
+                addFruit(); // เพิ่มผลไม้
+                Thread.sleep((int) (Math.random() * 2) * 1000); //สุ่มในการหยุดปล่อย
             } catch (InterruptedException ex) {
 
             }
@@ -66,7 +66,7 @@ public class GetFruitGame extends Page implements Runnable {
     }
 
     public void addFruit() {
-        int randomX = (int) (Math.random() * (GameView.WIDTH - 200));
+        int randomX = (int) (Math.random() * (GameView.WIDTH - 200)); // สุ่ม แกน X
         int randomFriut = (int) (Math.random() * fruitName.length);
         fruitDrop.add(new Fruit(fruitName[randomFriut] + ".png", randomX, this));
     }

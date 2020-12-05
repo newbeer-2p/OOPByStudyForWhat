@@ -6,13 +6,14 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import javax.imageio.ImageIO;
 
 /**
  *
  * @author newbe
  */
-public class MyImage {
+public class MyImage implements Serializable{
 
     private BufferedImage img;
     private int width, height;

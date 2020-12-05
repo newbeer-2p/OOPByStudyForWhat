@@ -18,11 +18,13 @@ public class PlantPlot implements Serializable {
         this.numId = numId;
     }
 
-    public void addSeed(String nameSeed) {
+    public boolean addSeed(String nameSeed) {
         if (seed == null) {
             seed = new Seed(nameSeed);
             img.setImg("/plantplot/" + seed.getNameProduct() + "/crop" + level + ".png");
+            return true;
         }
+        return false;
     }
 
     public void watering() {
@@ -48,7 +50,6 @@ public class PlantPlot implements Serializable {
             }
             watering = false;
             img.setImg("/plantplot/" + seed.getNameProduct() + "/crop" + level + ".png");
-            System.out.println(level);
         }
 
     }

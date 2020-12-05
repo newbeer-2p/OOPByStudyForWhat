@@ -44,8 +44,8 @@ public class Fruit implements Runnable {
                 if (img.isHit(player.getImg())) {
                     p.addFruitCollect(this);
                 }
-                img.setY(img.getY()+movement);
-                p.getView().repaint();
+                img.setY(img.getY()+movement); // ขยับแกน Y ให้มันลงมา
+                p.getView().repaint(); // ให้วาดใหม่
                 Thread.sleep(50);
             } catch (InterruptedException ex) {
 

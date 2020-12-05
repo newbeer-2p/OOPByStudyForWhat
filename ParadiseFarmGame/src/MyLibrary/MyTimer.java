@@ -1,6 +1,8 @@
 package MyLibrary;
 
-public class MyTimer implements Runnable {
+import java.io.Serializable;
+
+public class MyTimer implements Runnable, Serializable {
 
     private int time, sec;
     private int second;

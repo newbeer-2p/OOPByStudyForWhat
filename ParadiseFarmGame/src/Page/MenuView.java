@@ -25,7 +25,7 @@ public class MenuView extends Page implements Runnable {
         imgNew.setSize(imgNew.getWidth(), imgNew.getHeight());
         imgLoad = new MyImage("loadgame2.png", 200, 600);
         imgLoad.setSize(imgLoad.getWidth(), imgLoad.getHeight());
-        imgLogo = new MyImage("ParadiseFarmLogo.png", 150, 100);
+        imgLogo = new MyImage("ParadiseFarmLogo.png", 130, 100);
         
         t = new Thread(this);
         t.start();

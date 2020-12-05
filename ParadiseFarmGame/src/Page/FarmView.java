@@ -16,13 +16,13 @@ public class FarmView extends Page {
     private GameView view;
     private MyImage imgBackground;
     private MyImage imgGoRight;
-    private MyImage imgSleep;
     private MyImage imgWateringCan;
     private MyImage imgSeedRadish;
     private MyImage imgSeedCarrot;
     private MyImage imgSeedTomato;
     private MyImage imgCancel;
     private MyImage imgHand;
+    private MyImage imgPlayerCard;
     
     private boolean useWateringCan;
     private boolean useSeedRadish;
@@ -30,10 +30,20 @@ public class FarmView extends Page {
     private boolean useSeedTomato;
     private boolean useHand;
     private PlantPlot[] myPlot;
+//    private MyImage[] imgPlantPlot;
 
     public FarmView(Player player, GameView view) {
         this.view = view;
         this.player = player;
+        
+//        imgPlantPlot = new MyImage[20];
+
+//        myPlot = new PlantPlot[20];
+//        for (int i = 0; i < myPlot.length; i++)
+//        {
+//            myPlot[i].setImg(new MyImage(player.getImgPlantPlot()[i]));
+//            myPlot[i].getImg().setSize(100, 100);
+//        }
         
         imgBackground = new MyImage("/background/Farm.png");
         imgBackground.setSize(800, 800);
@@ -41,9 +51,6 @@ public class FarmView extends Page {
         imgGoRight = new MyImage("arrowRight.png");
         imgGoRight.setSize(imgGoRight.getWidth() / 4, imgGoRight.getHeight() / 4);
         imgGoRight.setLocation(GameView.WIDTH - imgGoRight.getWidth() - 8, GameView.HEIGHT / 2 - imgGoRight.getHeight() / 2 - 15);
-
-        imgSleep = new MyImage("arrowLeft.png", 0, 0);
-        imgSleep.setSize(imgSleep.getWidth() / 4, imgSleep.getHeight() / 4);
 
         myPlot = player.getMyPlot();
 
@@ -62,6 +69,8 @@ public class FarmView extends Page {
         imgSeedCarrot.setSize(imgSeedCarrot.getWidth() / 6, imgSeedCarrot.getHeight() / 6);
         imgSeedTomato = new MyImage("tomatoSeed.png", GameView.WIDTH - 480, GameView.HEIGHT - 120);
         imgSeedTomato.setSize(imgSeedTomato.getWidth() / 6, imgSeedTomato.getHeight() / 6);
+        
+        imgPlayerCard = new MyImage("card.png", 20, 20);
 
     }
 
@@ -76,7 +85,6 @@ public class FarmView extends Page {
         }
 
         g2d.drawImage(imgGoRight.loadImage(), imgGoRight.getX(), imgGoRight.getY(), imgGoRight.getWidth(), imgGoRight.getHeight(), null);
-        g2d.drawImage(imgSleep.loadImage(), imgSleep.getX(), imgSleep.getY(), imgSleep.getWidth(), imgSleep.getHeight(), null);
         for (int i = 0; i < myPlot.length / 4; i++) {
             for (int j = 0; j < myPlot.length / 5; j++) {
                 myPlot[(i * 4) + j].getImg().setLocation(100 + (i * 100), 250 + (j * 100));
@@ -88,8 +96,9 @@ public class FarmView extends Page {
             }
         }
         paintMenuBar(g2d);
+        drawPlayerCard(g2d);
     }
-
+    
     public void paintMenuBar(Graphics2D g2d) {
         g2d.drawImage(imgWateringCan.loadImage(), imgWateringCan.getX(), imgWateringCan.getY(), imgWateringCan.getWidth(), imgWateringCan.getHeight(), null);
         g2d.drawImage(imgHand.loadImage(), imgHand.getX(), imgHand.getY(), imgHand.getWidth(), imgHand.getHeight(), null);
@@ -103,6 +112,16 @@ public class FarmView extends Page {
         g2d.drawImage(imgSeedTomato.loadImage(), imgSeedTomato.getX(), imgSeedTomato.getY(), imgSeedTomato.getWidth(), imgSeedTomato.getHeight(), null);
         g2d.drawString(player.getInventorySeed()[2].getNumItem() + "", imgSeedTomato.getX() + imgSeedTomato.getWidth(), imgSeedTomato.getY() + imgSeedTomato.getHeight());
     }
+    
+    public void drawPlayerCard(Graphics2D g2d) {
+        g2d.drawImage(imgPlayerCard.loadImage(), imgPlayerCard.getX(), imgPlayerCard.getY(), imgPlayerCard.getWidth(), imgPlayerCard.getHeight(), null);
+        g2d.setFont(new Font("Ayutaya", Font.PLAIN, 27));
+        g2d.setColor(Color.BLACK);
+        g2d.drawString("Name: " + player.getName(), imgPlayerCard.getX() + 125, imgPlayerCard.getY() + 50);
+        g2d.drawString("Sex: Female", imgPlayerCard.getX() + 125, imgPlayerCard.getY() + 115);
+        g2d.drawString("Day: " + player.getDayInFarm(), imgPlayerCard.getX() + 20, imgPlayerCard.getY() + 175);
+        g2d.drawString("Money: " + player.showMoney(), imgPlayerCard.getX() + 125, imgPlayerCard.getY() + 175);
+    }
 
     public MyImage getImgGoRight() {
         return imgGoRight;
@@ -110,14 +129,6 @@ public class FarmView extends Page {
 
     public void setImgGoRight(MyImage imgGoRight) {
         this.imgGoRight = imgGoRight;
-    }
-
-    public MyImage getImgSleep() {
-        return imgSleep;
-    }
-
-    public void setImgSleep(MyImage imgSleep) {
-        this.imgSleep = imgSleep;
     }
 
     public PlantPlot[] getMyPlot() {

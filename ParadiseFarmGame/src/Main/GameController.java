@@ -12,7 +12,7 @@ import Page.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class GameController implements MouseListener, MouseMotionListener {
+public class GameController implements MouseListener, MouseMotionListener, WindowListener {
 
     private GameView view;
     private GameModel model;
@@ -23,6 +23,7 @@ public class GameController implements MouseListener, MouseMotionListener {
 
         view.addMouseListener(this);
         view.addMouseMotionListener(this);
+        view.getFrame().addWindowListener(this);
     }
 
     public void updatePage() {
@@ -67,6 +68,7 @@ public class GameController implements MouseListener, MouseMotionListener {
                 updatePage();
             } else if (mouseBounds.intersects(page.getImgNext().getBounds())) {
                 view.setPageNow("FrontHouseView");
+                model.setPlayer(new Player());
                 updatePage();
             }
 
@@ -97,17 +99,31 @@ public class GameController implements MouseListener, MouseMotionListener {
             if (mouseBounds.intersects(page.getImgGoDown().getBounds())) {
                 view.setPageNow("FrontHouseView");
                 updatePage();
+            } else if (mouseBounds.intersects(page.getImgBed().getBounds())) {
+                if (!page.isLampOpen()) {
+                    for (int i = 0; i < model.getPlayer().getMyPlot().length; i++) {
+                        model.getPlayer().getMyPlot()[i].grow();
+                    }
+                    model.getPlayer().setDayInFarm(model.getPlayer().getDayInFarm() + 1);
+                    page.getImgLamp().setImg("lampOpen.png");
+                    page.setLampOpen(true);
+                }
+
+                view.repaint();
+            } else if (mouseBounds.intersects(page.getImgLamp().getBounds())) {
+                if (page.isLampOpen()) {
+                    page.getImgLamp().setImg("lampClose.png");
+                } else {
+                    page.getImgLamp().setImg("lampOpen.png");
+                }
+                page.setLampOpen(!page.isLampOpen());
+                view.repaint();
             }
         } else if (view.getPageNow().equals("FarmView")) {
             FarmView page = (FarmView) view.getPage();
             if (mouseBounds.intersects(page.getImgGoRight().getBounds())) {
                 view.setPageNow("FrontHouseView");
                 updatePage();
-            } else if (mouseBounds.intersects(page.getImgSleep().getBounds())) {
-                for (int i = 0; i < page.getMyPlot().length; i++) {
-                    page.getMyPlot()[i].grow();
-                }
-                view.repaint();
             } else if (!page.isUseWateringCan() && !page.isUseSeedRadish() && !page.isUseSeedCarrot() && !page.isUseSeedTomato() && !page.isUseHand()) {
                 if (mouseBounds.intersects(page.getImgWateringCan().getBounds())) {
                     page.setUseWateringCan(true);
@@ -124,7 +140,7 @@ public class GameController implements MouseListener, MouseMotionListener {
             } else if (mouseBounds.intersects(page.getImgCancel().getBounds())) {
                 page.setUseWateringCan(false);
                 page.getImgWateringCan().setLocation(GameView.WIDTH - 100, GameView.HEIGHT - 110);
-                
+
                 page.setUseHand(false);
                 page.getImgHand().setLocation(GameView.WIDTH - 180, GameView.HEIGHT - 110);
 
@@ -145,20 +161,20 @@ public class GameController implements MouseListener, MouseMotionListener {
                                 plot.watering();
                             }
                         } else if (mouseBounds.intersects(page.getImgHand().getBounds())) {
-                            if (plot.isCanGet())
-                            {
+                            if (plot.isCanGet()) {
                                 model.getPlayer().addItem(plot.getProduct());
                                 plot.setSeed(null);
+                                model.getPlayer().setMoney(model.getPlayer().getMoney() + 100);
                             }
                         } else if (mouseBounds.intersects(page.getImgSeedRadish().getBounds()) && model.getPlayer().getInventorySeed()[0].getNumItem() != 0) {
-                            plot.addSeed("radish");
-                            model.getPlayer().getInventorySeed()[0].useSeed();
+                            if (plot.addSeed("radish"))
+                                model.getPlayer().getInventorySeed()[0].useSeed();
                         } else if (mouseBounds.intersects(page.getImgSeedCarrot().getBounds()) && model.getPlayer().getInventorySeed()[1].getNumItem() != 0) {
-                            plot.addSeed("carrot");
-                            model.getPlayer().getInventorySeed()[1].useSeed();
+                            if (plot.addSeed("carrot"))
+                                model.getPlayer().getInventorySeed()[1].useSeed();
                         } else if (mouseBounds.intersects(page.getImgSeedTomato().getBounds()) && model.getPlayer().getInventorySeed()[2].getNumItem() != 0) {
-                            plot.addSeed("tomato");
-                            model.getPlayer().getInventorySeed()[2].useSeed();
+                            if (plot.addSeed("tomato"))
+                                model.getPlayer().getInventorySeed()[2].useSeed();
                         }
                     }
                 }
@@ -169,6 +185,15 @@ public class GameController implements MouseListener, MouseMotionListener {
             if (mouseBounds.intersects(page.getImgGoLeft().getBounds())) {
                 view.setPageNow("FrontHouseView");
                 updatePage();
+            } else if (mouseBounds.intersects(page.getImgSeedRadish().getBounds())) {
+                model.getPlayer().buyItem(new Seed("radish"));
+                view.repaint();
+            } else if (mouseBounds.intersects(page.getImgSeedCarrot().getBounds())) {
+                model.getPlayer().buyItem(new Seed("carrot"));
+                view.repaint();
+            } else if (mouseBounds.intersects(page.getImgSeedTomato().getBounds())) {
+                model.getPlayer().buyItem(new Seed("tomato"));
+                view.repaint();
             }
         } else if (view.getPageNow().equals("GetFruitGame")) {
 
@@ -183,28 +208,34 @@ public class GameController implements MouseListener, MouseMotionListener {
     }
 
     @Override
-    public void mousePressed(MouseEvent me) {
+    public void mousePressed(MouseEvent me
+    ) {
 
     }
 
     @Override
-    public void mouseReleased(MouseEvent me) {
+    public void mouseReleased(MouseEvent me
+    ) {
     }
 
     @Override
-    public void mouseEntered(MouseEvent me) {
+    public void mouseEntered(MouseEvent me
+    ) {
     }
 
     @Override
-    public void mouseExited(MouseEvent me) {
+    public void mouseExited(MouseEvent me
+    ) {
     }
 
     @Override
-    public void mouseDragged(MouseEvent me) {
+    public void mouseDragged(MouseEvent me
+    ) {
     }
 
     @Override
-    public void mouseMoved(MouseEvent me) {
+    public void mouseMoved(MouseEvent me
+    ) {
         Rectangle mouseBounds = new Rectangle(me.getX(), me.getY(), 1, 1);
         if (view.getPageNow().equals("MenuView")) {
             MenuView page = (MenuView) view.getPage();
@@ -239,6 +270,36 @@ public class GameController implements MouseListener, MouseMotionListener {
 
             view.repaint();
         }
+    }
+
+    @Override
+    public void windowOpened(WindowEvent we) {
+
+    }
+
+    @Override
+    public void windowClosing(WindowEvent we) {
+//        model.saveData();
+    }
+
+    @Override
+    public void windowClosed(WindowEvent we) {
+    }
+
+    @Override
+    public void windowIconified(WindowEvent we) {
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent we) {
+    }
+
+    @Override
+    public void windowActivated(WindowEvent we) {
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent we) {
     }
 
     public static void main(String[] args) {
