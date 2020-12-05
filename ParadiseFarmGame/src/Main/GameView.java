@@ -1,6 +1,6 @@
 package Main;
 
-import Page.MenuView;
+import Page.*;
 import Page.Page;
 import java.awt.*;
 import javax.swing.*;

@@ -108,9 +108,11 @@ public class GameController implements MouseListener, MouseMotionListener {
                     page.getMyPlot()[i].grow();
                 }
                 view.repaint();
-            } else if (!page.isUseWateringCan() && !page.isUseSeedRadish() && !page.isUseSeedCarrot() && !page.isUseSeedTomato()) {
+            } else if (!page.isUseWateringCan() && !page.isUseSeedRadish() && !page.isUseSeedCarrot() && !page.isUseSeedTomato() && !page.isUseHand()) {
                 if (mouseBounds.intersects(page.getImgWateringCan().getBounds())) {
                     page.setUseWateringCan(true);
+                } else if (mouseBounds.intersects(page.getImgHand().getBounds())) {
+                    page.setUseHand(true);
                 } else if (mouseBounds.intersects(page.getImgSeedRadish().getBounds())) {
                     page.setUseSeedRadish(true);
                 } else if (mouseBounds.intersects(page.getImgSeedCarrot().getBounds())) {
@@ -122,22 +124,31 @@ public class GameController implements MouseListener, MouseMotionListener {
             } else if (mouseBounds.intersects(page.getImgCancel().getBounds())) {
                 page.setUseWateringCan(false);
                 page.getImgWateringCan().setLocation(GameView.WIDTH - 100, GameView.HEIGHT - 110);
+                
+                page.setUseHand(false);
+                page.getImgHand().setLocation(GameView.WIDTH - 180, GameView.HEIGHT - 110);
 
                 page.setUseSeedRadish(false);
-                page.getImgSeedRadish().setLocation(GameView.WIDTH - 200, GameView.HEIGHT - 120);
+                page.getImgSeedRadish().setLocation(GameView.WIDTH - 280, GameView.HEIGHT - 120);
 
                 page.setUseSeedCarrot(false);
-                page.getImgSeedCarrot().setLocation(GameView.WIDTH - 300, GameView.HEIGHT - 120);
+                page.getImgSeedCarrot().setLocation(GameView.WIDTH - 380, GameView.HEIGHT - 120);
 
                 page.setUseSeedTomato(false);
-                page.getImgSeedTomato().setLocation(GameView.WIDTH - 400, GameView.HEIGHT - 120);
-            } else if (page.isUseWateringCan() || page.isUseSeedRadish() || page.isUseSeedCarrot() || page.isUseSeedTomato()) {
+                page.getImgSeedTomato().setLocation(GameView.WIDTH - 480, GameView.HEIGHT - 120);
+            } else if (page.isUseWateringCan() || page.isUseSeedRadish() || page.isUseSeedCarrot() || page.isUseSeedTomato() || page.isUseHand()) {
                 for (int i = 0; i < page.getMyPlot().length; i++) {
                     if (mouseBounds.intersects(page.getMyPlot()[i].getImg().getBounds())) {
                         PlantPlot plot = page.getMyPlot()[i];
                         if (mouseBounds.intersects(page.getImgWateringCan().getBounds())) {
                             if (plot.getSeed() != null) {
                                 plot.watering();
+                            }
+                        } else if (mouseBounds.intersects(page.getImgHand().getBounds())) {
+                            if (plot.isCanGet())
+                            {
+                                System.out.println("Yeah!");
+                                model.getPlayer().addItem(plot.getProduct());
                             }
                         } else if (mouseBounds.intersects(page.getImgSeedRadish().getBounds()) && model.getPlayer().getInventorySeed()[0].getNumItem() != 0) {
                             plot.addSeed("radish");
@@ -211,6 +222,8 @@ public class GameController implements MouseListener, MouseMotionListener {
             FarmView page = (FarmView) view.getPage();
             if (page.isUseWateringCan()) {
                 page.getImgWateringCan().setLocation(me.getX() - 50, me.getY() - 25);
+            } else if (page.isUseHand()) {
+                page.getImgHand().setLocation(me.getX() - 25, me.getY() - 20);
             } else if (page.isUseSeedRadish()) {
                 page.getImgSeedRadish().setLocation(me.getX() - 25, me.getY() - 20);
             } else if (page.isUseSeedCarrot()) {

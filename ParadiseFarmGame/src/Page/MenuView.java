@@ -38,7 +38,6 @@ public class MenuView extends Page implements Runnable {
         g2d.drawImage(imgNew.loadImage(), imgNew.getX(), imgNew.getY(), imgNew.getWidth(), imgNew.getHeight(), null);
         g2d.drawImage(imgLoad.loadImage(), imgLoad.getX(), imgLoad.getY(), imgLoad.getWidth(), imgLoad.getHeight(), null);
         g2d.drawImage(imgLogo.loadImage(), imgLogo.getX(), imgLogo.getY(), imgLogo.getWidth(), imgLogo.getHeight(), null);
-//        paintTableXY(g2d);
         view.repaint();
     }
 
@@ -57,17 +56,6 @@ public class MenuView extends Page implements Runnable {
             } catch (Exception ex) {
 
             }
-        }
-    }
-
-    public void paintTableXY(Graphics2D g2d) {
-        for (int i = 0; i < GameView.WIDTH; i += 50) {
-            g2d.drawLine(i, 0, i, GameView.WIDTH);
-            g2d.drawString("(" + i + ")", i, 12);
-        }
-        for (int i = 0; i < GameView.HEIGHT; i += 50) {
-            g2d.drawLine(0, i, GameView.HEIGHT, i);
-            g2d.drawString("(" + i + ")", 0, i + 12);
         }
     }
 

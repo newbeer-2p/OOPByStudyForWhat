@@ -13,6 +13,9 @@ public class FrontHouseView extends Page {
     private MyImage imgGoUp;
     private MyImage imgGoLeft;
     private MyImage imgGoRight;
+    private MyImage imgFence;
+    private MyImage imgFenceEnd;
+    private MyImage imgbackground;
 
     public FrontHouseView(Player player, GameView view) {
         this.view = view;
@@ -29,17 +32,31 @@ public class FrontHouseView extends Page {
         imgGoRight = new MyImage("arrowRight.png");
         imgGoRight.setSize(imgGoRight.getWidth() / 4, imgGoRight.getHeight() / 4);
         imgGoRight.setLocation(GameView.WIDTH-imgGoRight.getWidth()-8, GameView.HEIGHT/2-imgGoRight.getHeight()/2-15);
-
+        
+        imgFence = new MyImage("fence.png", 0, 611);
+        imgFence.setSize(imgFence.getWidth() / 4, imgFence.getHeight() / 4);
+        
+        imgFenceEnd = new MyImage ("fence1.png", 0, 611);
+        imgFenceEnd.setSize(imgFence.getWidth(), imgFence.getHeight());
+        
+        imgbackground = new MyImage ("/background/FrontHouse.png");
+        imgbackground.setSize(imgbackground.getWidth(), imgbackground.getHeight());
     }
 
     @Override
     public void paint(Graphics2D g2d) {
         this.g2d = g2d;
-
+        
+        g2d.drawImage(imgbackground.loadImage(), imgbackground.getX(), imgbackground.getY(), imgbackground.getWidth(), imgbackground.getHeight(), null);
+        g2d.drawImage(imgFence.loadImage(), imgFence.getX(), imgFence.getY(), imgFence.getWidth(), imgFence.getHeight(), null);
+        g2d.drawImage(imgFenceEnd.loadImage(), imgFenceEnd.getX()+160, imgFenceEnd.getY(), imgFenceEnd.getWidth(), imgFenceEnd.getHeight(), null);
+        g2d.drawImage(imgFence.loadImage(), imgFence.getX()+472, imgFence.getY(), imgFence.getWidth(), imgFence.getHeight(), null);
+        g2d.drawImage(imgFence.loadImage(), imgFence.getX()+632, imgFence.getY(), imgFence.getWidth(), imgFence.getHeight(), null);
         g2d.drawImage(imgGoUp.loadImage(), imgGoUp.getX(), imgGoUp.getY(), imgGoUp.getWidth(), imgGoUp.getHeight(), null);
         g2d.drawImage(imgGoLeft.loadImage(), imgGoLeft.getX(), imgGoLeft.getY(), imgGoLeft.getWidth(), imgGoLeft.getHeight(), null);
         g2d.drawImage(imgGoRight.loadImage(), imgGoRight.getX(), imgGoRight.getY(), imgGoRight.getWidth(), imgGoRight.getHeight(), null);
     }
+    
 
     public MyImage getImgGoUp() {
         return imgGoUp;

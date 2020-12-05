@@ -21,11 +21,13 @@ public class FarmView extends Page {
     private MyImage imgSeedCarrot;
     private MyImage imgSeedTomato;
     private MyImage imgCancel;
+    private MyImage imgHand;
     
     private boolean useWateringCan;
     private boolean useSeedRadish;
     private boolean useSeedCarrot;
     private boolean useSeedTomato;
+    private boolean useHand;
     private PlantPlot[] myPlot;
 
     public FarmView(Player player, GameView view) {
@@ -41,21 +43,23 @@ public class FarmView extends Page {
 
         imgSleep = new MyImage("arrowLeft.png", 0, 0);
         imgSleep.setSize(imgSleep.getWidth() / 4, imgSleep.getHeight() / 4);
-//        imgGoRight.setLocation(GameView.WIDTH - imgGoRight.getWidth() - 8, GameView.HEIGHT / 2 - imgGoRight.getHeight() / 2 - 15);
 
         myPlot = player.getMyPlot();
 
         imgWateringCan = new MyImage("wateringcan.png", GameView.WIDTH - 100, GameView.HEIGHT - 110);
         imgWateringCan.setSize(imgWateringCan.getWidth() / 8, imgWateringCan.getHeight() / 8);
 
-        imgCancel = new MyImage("cancel.png", 0, GameView.HEIGHT - 120);
-        imgCancel.setSize(imgCancel.getWidth() / 8, imgCancel.getHeight() / 8);
+        imgCancel = new MyImage("cancel.png", 10, GameView.HEIGHT - 140);
+        imgCancel.setSize(imgCancel.getWidth() / 4, imgCancel.getHeight() / 4);
+        
+        imgHand = new MyImage("hand.png", GameView.WIDTH - 180, GameView.HEIGHT - 120);
+        imgHand.setSize(imgHand.getWidth() / 10, imgHand.getHeight() / 10);
 
-        imgSeedRadish = new MyImage("radishSeed.png", GameView.WIDTH - 200, GameView.HEIGHT - 120);
+        imgSeedRadish = new MyImage("radishSeed.png", GameView.WIDTH - 280, GameView.HEIGHT - 120);
         imgSeedRadish.setSize(imgSeedRadish.getWidth() / 6, imgSeedRadish.getHeight() / 6);
-        imgSeedCarrot = new MyImage("carrotSeed.png", GameView.WIDTH - 300, GameView.HEIGHT - 120);
+        imgSeedCarrot = new MyImage("carrotSeed.png", GameView.WIDTH - 380, GameView.HEIGHT - 120);
         imgSeedCarrot.setSize(imgSeedCarrot.getWidth() / 6, imgSeedCarrot.getHeight() / 6);
-        imgSeedTomato = new MyImage("tomatoSeed.png", GameView.WIDTH - 400, GameView.HEIGHT - 120);
+        imgSeedTomato = new MyImage("tomatoSeed.png", GameView.WIDTH - 480, GameView.HEIGHT - 120);
         imgSeedTomato.setSize(imgSeedTomato.getWidth() / 6, imgSeedTomato.getHeight() / 6);
 
     }
@@ -66,7 +70,7 @@ public class FarmView extends Page {
         
         g2d.drawImage(imgBackground.loadImage(), 0, 0, null);
         
-        if (useWateringCan || useSeedRadish || useSeedCarrot || useSeedTomato) {
+        if (useWateringCan || useSeedRadish || useSeedCarrot || useSeedTomato|| useHand) {
             g2d.drawImage(imgCancel.loadImage(), imgCancel.getX(), imgCancel.getY(), imgCancel.getWidth(), imgCancel.getHeight(), null);
         }
 
@@ -79,18 +83,11 @@ public class FarmView extends Page {
             }
         }
         paintMenuBar(g2d);
-//        for (int i = 0; i < GameView.WIDTH; i += 50) {
-//            g2d.drawLine(i, 0, i, GameView.WIDTH);
-//            g2d.drawString("(" + i + ")", i, 12);
-//        }
-//        for (int i = 0; i < GameView.HEIGHT; i += 50) {
-//            g2d.drawLine(0, i, GameView.HEIGHT, i);
-//            g2d.drawString("(" + i + ")", 0, i + 12);
-//        }
     }
 
     public void paintMenuBar(Graphics2D g2d) {
         g2d.drawImage(imgWateringCan.loadImage(), imgWateringCan.getX(), imgWateringCan.getY(), imgWateringCan.getWidth(), imgWateringCan.getHeight(), null);
+        g2d.drawImage(imgHand.loadImage(), imgHand.getX(), imgHand.getY(), imgHand.getWidth(), imgHand.getHeight(), null);
 
         g2d.setColor(Color.BLACK);
         g2d.setFont(new Font("Ayutaya", Font.PLAIN, 30));
@@ -196,6 +193,22 @@ public class FarmView extends Page {
 
     public void setUseSeedTomato(boolean useSeedTomato) {
         this.useSeedTomato = useSeedTomato;
+    }
+
+    public MyImage getImgHand() {
+        return imgHand;
+    }
+
+    public void setImgHand(MyImage imgHand) {
+        this.imgHand = imgHand;
+    }
+
+    public boolean isUseHand() {
+        return useHand;
+    }
+
+    public void setUseHand(boolean useHand) {
+        this.useHand = useHand;
     }
     
     

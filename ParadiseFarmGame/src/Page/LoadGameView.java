@@ -2,6 +2,7 @@ package Page;
 
 import Main.*;
 import MyLibrary.MyImage;
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class LoadGameView extends Page{
@@ -10,6 +11,8 @@ public class LoadGameView extends Page{
     private GameView view;
     private MyImage imgBack;
     private MyImage imgNext;
+    
+    private MyImage imgTree;
     
     private Player player;
 
@@ -20,6 +23,9 @@ public class LoadGameView extends Page{
         imgBack = new MyImage("arrowLeft.png", 0, GameView.HEIGHT-105);
         imgBack.setSize(imgBack.getWidth()/4, imgBack.getHeight()/4);
         imgNext = new MyImage("arrowRight.png", GameView.WIDTH-93, GameView.HEIGHT-105);
+        imgNext.setSize(imgNext.getWidth(), imgNext.getHeight());
+        
+        imgTree = new MyImage("/background/dsa.png", 0, 0);
         imgNext.setSize(imgNext.getWidth()/4, imgNext.getHeight()/4);
     }
 
@@ -28,7 +34,7 @@ public class LoadGameView extends Page{
         this.g2d = g2d;
         g2d.drawImage(imgBack.loadImage(), imgBack.getX(), imgBack.getY(), imgBack.getWidth(), imgBack.getHeight(), null);
         g2d.drawImage(imgNext.loadImage(), imgNext.getX(), imgNext.getY(), imgNext.getWidth(), imgNext.getHeight(), null);
-    }
+}
 
     public MyImage getImgBack() {
         return imgBack;

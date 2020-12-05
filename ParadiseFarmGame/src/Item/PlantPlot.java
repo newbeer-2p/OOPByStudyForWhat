@@ -11,7 +11,6 @@ public class PlantPlot implements Serializable {
     protected int days;
     protected MyImage img;
     private boolean watering;
-    private boolean fertilize;
     private boolean canGet;
 
     public PlantPlot(int numId) {
@@ -36,18 +35,13 @@ public class PlantPlot implements Serializable {
         }
     }
 
-    public void fertilize() {
-        if (!fertilize) {
-            fertilize = true;
-        }
-    }
-
     public void grow() {
-        if (watering && seed != null) {
+        if (watering && seed != null && !canGet) {
             days++;
             System.out.println(level);
-            if ((level+1) == seed.getLevelMax()) {
+            if ((level + 1) == seed.getLevelMax()) {
                 img.setImg("plantcrop" + seed.getNameProduct() + ".png");
+                level++;
                 canGet = true;
 
             } else if (days % (seed.getDayToGrow() / seed.getLevelMax()) == 0) {
@@ -66,6 +60,8 @@ public class PlantPlot implements Serializable {
     }
 
     public Item getProduct() {
+        seed = null;
+        img.setImg("plantcrop.png");
         return seed.getProduct();
     }
 
@@ -117,12 +113,13 @@ public class PlantPlot implements Serializable {
         this.img = img;
     }
 
-    public boolean isFertilize() {
-        return fertilize;
+    public boolean isCanGet() {
+        return canGet;
     }
 
-    public void setFertilize(boolean fertilize) {
-        this.fertilize = fertilize;
+    public void setCanGet(boolean canGet) {
+        this.canGet = canGet;
     }
-
+    
+    
 }
