@@ -37,7 +37,7 @@ public class Seed extends Item implements Serializable {
     }
 
     public Item getProduct() {
-        return new Item(nameProduct);
+        return new Item(nameProduct, 1);
     }
 
     public int getDayToGrow() {

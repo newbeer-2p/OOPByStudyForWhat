@@ -147,8 +147,8 @@ public class GameController implements MouseListener, MouseMotionListener {
                         } else if (mouseBounds.intersects(page.getImgHand().getBounds())) {
                             if (plot.isCanGet())
                             {
-                                System.out.println("Yeah!");
                                 model.getPlayer().addItem(plot.getProduct());
+                                plot.setSeed(null);
                             }
                         } else if (mouseBounds.intersects(page.getImgSeedRadish().getBounds()) && model.getPlayer().getInventorySeed()[0].getNumItem() != 0) {
                             plot.addSeed("radish");

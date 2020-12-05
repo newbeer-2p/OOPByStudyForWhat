@@ -38,7 +38,6 @@ public class PlantPlot implements Serializable {
     public void grow() {
         if (watering && seed != null && !canGet) {
             days++;
-            System.out.println(level);
             if ((level + 1) == seed.getLevelMax()) {
                 img.setImg("plantcrop" + seed.getNameProduct() + ".png");
                 level++;
@@ -60,7 +59,6 @@ public class PlantPlot implements Serializable {
     }
 
     public Item getProduct() {
-        seed = null;
         img.setImg("plantcrop.png");
         return seed.getProduct();
     }
