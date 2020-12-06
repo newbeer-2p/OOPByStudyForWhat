@@ -1,5 +1,6 @@
 package Minigame;
 
+import Main.MyImage;
 import Main.GameView;
 import MyLibrary.*;
 import java.awt.*;

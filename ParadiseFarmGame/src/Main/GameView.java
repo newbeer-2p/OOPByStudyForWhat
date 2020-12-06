@@ -1,6 +1,5 @@
 package Main;
 
-import MyLibrary.MyImage;
 import Page.*;
 import Page.Page;
 import java.awt.*;

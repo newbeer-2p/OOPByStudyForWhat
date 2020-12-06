@@ -5,6 +5,7 @@
  */
 package Page;
 
+import Main.MyImage;
 import Main.*;
 import MyLibrary.*;
 import java.awt.Font;
