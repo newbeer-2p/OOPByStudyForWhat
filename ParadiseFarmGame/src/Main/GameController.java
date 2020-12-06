@@ -225,27 +225,6 @@ public class GameController implements MouseListener, MouseMotionListener {
     }
 
     @Override
-    public void mousePressed(MouseEvent me) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent me) {
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent me) {
-    }
-
-    @Override
-    public void mouseExited(MouseEvent me) {
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent me) {
-    }
-
-    @Override
     public void mouseMoved(MouseEvent me
     ) {
         Rectangle mouseBounds = new Rectangle(me.getX(), me.getY(), 1, 1);
@@ -280,6 +259,27 @@ public class GameController implements MouseListener, MouseMotionListener {
             page.getImgSpray().setLocation(me.getX() - 75, me.getY() - 25);
             view.repaint();
         }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent me) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent me) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent me) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent me) {
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent me) {
     }
 
     public static void main(String[] args) {
