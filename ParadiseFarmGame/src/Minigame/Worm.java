@@ -7,10 +7,9 @@ import Page.*;
 
 public class Worm implements Runnable {
 
-    private Graphics2D g2d;
-    private int degree;
     private Thread t;
     private CatchWormGameView p;
+    
     private MyImage img;
 
     public Worm(CatchWormGameView p) {

@@ -11,13 +11,13 @@ public class FrontHouseView extends Page {
     private Player player;
 
     private GameView view;
+    
     private MyImage imgGoUp;
     private MyImage imgGoLeft;
     private MyImage imgGoRight;
     private MyImage imgFence;
     private MyImage imgFenceEnd;
     private MyImage imgbackground;
-
     private MyImage imgPlayerCard;
 
     public FrontHouseView(Player player, GameView view) {

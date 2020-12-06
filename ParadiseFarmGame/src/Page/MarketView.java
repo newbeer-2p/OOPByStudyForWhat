@@ -11,6 +11,7 @@ public class MarketView extends Page {
     private Player player;
 
     private GameView view;
+    
     private MyImage imgGoLeft;
     private MyImage imgbgShop;
     private MyImage imgShop;

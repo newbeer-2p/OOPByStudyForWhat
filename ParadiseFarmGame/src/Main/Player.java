@@ -9,10 +9,11 @@ public class Player implements Serializable {
     private String name;
     private double money = 400;
     private int dayInFarm = 1;
+    private boolean playEvent;
+    
     private ArrayList<Item> inventory;
     private Seed[] inventorySeed = {new Seed("radish"), new Seed("carrot"), new Seed("tomato")};
     private PlantPlot[] myPlot;
-    private boolean playEvent;
 
     public Player() {
         name = "OOP";
@@ -98,7 +99,7 @@ public class Player implements Serializable {
     public void setMyPlot(PlantPlot[] myPlot) {
         this.myPlot = myPlot;
     }
-    
+
     public double getMoney() {
         return money;
     }
@@ -122,6 +123,5 @@ public class Player implements Serializable {
     public void setPlayEvent(boolean playEvent) {
         this.playEvent = playEvent;
     }
-    
 
 }

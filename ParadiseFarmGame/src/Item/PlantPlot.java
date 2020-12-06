@@ -9,9 +9,10 @@ public class PlantPlot implements Serializable {
     protected int numId;
     protected int level;
     protected int days;
+    protected boolean watering;
+    protected boolean canGet;
+
     protected MyImage img;
-    private boolean watering;
-    private boolean canGet;
 
     public PlantPlot(int numId) {
         img = new MyImage("/plantplot/crop.png");

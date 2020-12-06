@@ -13,6 +13,7 @@ public class Fruit implements Runnable {
     private Thread t;
     private int movement = (int) (Math.random() * 20 + 10);
     private BasketPlayer player;
+    
     private MyImage img;
 
     private boolean canHit;

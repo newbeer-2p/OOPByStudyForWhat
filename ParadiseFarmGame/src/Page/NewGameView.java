@@ -13,17 +13,15 @@ import java.awt.Graphics2D;
 public class NewGameView extends Page {
 
     private GameView view;
+
     private MyImage imgBack;
     private MyImage imgNext;
     private MyImage imgHowToPlay;
     private MyImage imgLogo;
     private MyImage imgBackground;
 
-    private Player player;
-
-    public NewGameView(Player player, GameView view) {
+    public NewGameView(GameView view) {
         this.view = view;
-        this.player = player;
 
         imgBack = new MyImage("arrowLeft.png", 0, GameView.HEIGHT - 105);
         imgBack.setSize(imgBack.getWidth() / 4, imgBack.getHeight() / 4);

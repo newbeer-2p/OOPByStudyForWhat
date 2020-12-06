@@ -7,6 +7,7 @@ import java.awt.*;
 public class MenuView extends Page implements Runnable {
     
     private GameView view;
+    
     private MyImage imgBackground;
     private MyImage imgNew;
     private MyImage imgLogo;

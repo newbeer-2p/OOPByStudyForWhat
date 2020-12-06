@@ -10,13 +10,15 @@ public class HouseView extends Page {
     private Player player;
 
     private GameView view;
+    private boolean lampOpen;
+
     private MyImage imgGoDown;
     private MyImage imgBghouse;
     private MyImage imgCalendar;
     private MyImage imgBed;
     private MyImage imgLamp;
-
-    private boolean lampOpen;
+    private MyImage imgTable;
+    private MyImage imgFrame;
 
     public HouseView(Player player, GameView view) {
         this.view = view;
@@ -38,11 +40,19 @@ public class HouseView extends Page {
         imgLamp = new MyImage("lampOpen.png", 150, 0);
         imgLamp.setSize(imgLamp.getWidth() / 3, imgLamp.getHeight() / 3);
         lampOpen = true;
+
+        imgTable = new MyImage("table.png", 650, 300);
+        imgTable.setSize(imgTable.getWidth() / 3, imgTable.getHeight() / 3);
+
+        imgFrame = new MyImage("farmframe.png", 100, 185);
+        imgFrame.setSize(imgFrame.getWidth() / 4, imgFrame.getHeight() / 4);
+
     }
 
     @Override
     public void paint(Graphics2D g2d) {
         g2d.drawImage(imgBghouse.loadImage(), imgBghouse.getX(), imgBghouse.getY(), imgBghouse.getWidth(), imgBghouse.getHeight(), null);
+        g2d.drawImage(imgFrame.loadImage(), imgFrame.getX(), imgFrame.getY(), imgFrame.getWidth(), imgFrame.getHeight(), null);
         g2d.drawImage(imgGoDown.loadImage(), imgGoDown.getX(), imgGoDown.getY(), imgGoDown.getWidth(), imgGoDown.getHeight(), null);
         g2d.drawImage(imgCalendar.loadImage(), imgCalendar.getX(), imgCalendar.getY(), imgCalendar.getWidth(), imgCalendar.getHeight(), null);
         g2d.drawImage(imgBed.loadImage(), imgBed.getX(), imgBed.getY(), imgBed.getWidth(), imgBed.getHeight(), null);
@@ -50,7 +60,8 @@ public class HouseView extends Page {
         g2d.setFont(new Font("Ayutaya", Font.PLAIN, 28));
         g2d.drawString("DAY", 395, 270);
         g2d.drawString(player.getDayInFarm() + "", 415, 300);
-        
+        g2d.drawImage(imgTable.loadImage(), imgTable.getX(), imgTable.getY(), imgTable.getWidth(), imgTable.getHeight(), null);
+
     }
 
     public MyImage getImgGoDown() {

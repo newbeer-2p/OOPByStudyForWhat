@@ -6,21 +6,23 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class GetFruitGameView extends Page implements Runnable {
-    
+
     private Player player;
 
     private Graphics2D g2d;
     private GameView view;
     private BasketPlayer basketPlayer;
+    private int score;
+    private boolean gameOver;
+    
     private ArrayList<Fruit> fruitDrop = new ArrayList<Fruit>();
     private ArrayList<Fruit> fruitCollect = new ArrayList<Fruit>();
     private MyTimer tmr;
     private Thread t = new Thread(this);
     private String fruitName[] = {"apple", "carrot", "tomato", "mangosteen", "radish"};
-    private boolean gameOver;
+    
     private MyImage imgGoToFarm;
     private MyImage imgGameOver;
-    private int score;
     private MyImage imgBackground;
 
     private int gameTime = 20;
@@ -29,16 +31,16 @@ public class GetFruitGameView extends Page implements Runnable {
         this.player = player;
         this.view = view;
         basketPlayer = new BasketPlayer(GameView.WIDTH / 2 - 50, GameView.HEIGHT - 190, this);
-        
-        imgGoToFarm = new MyImage("arrowRight.png",  550, 500);
+
+        imgGoToFarm = new MyImage("arrowRight.png", 550, 500);
         imgGoToFarm.setSize(imgGoToFarm.getWidth() / 4, imgGoToFarm.getHeight() / 4);
-        
+
         imgGameOver = new MyImage("gameOver.png", 180, 250);
         imgGameOver.setSize(imgGameOver.getWidth() / 4, imgGameOver.getHeight() / 4);
-        
+
         imgBackground = new MyImage("/background/fruitgame.png");
         imgBackground.setSize(800, 800);
-        
+
         tmr = new MyTimer(gameTime, true);
         t.start();
     }
@@ -62,7 +64,7 @@ public class GetFruitGameView extends Page implements Runnable {
 
     public void paint(Graphics2D g2d) {
         this.g2d = g2d;
-        
+
         g2d.drawImage(imgBackground.loadImage(), imgBackground.getX(), imgBackground.getY(), imgBackground.getWidth(), imgBackground.getHeight(), null);
         basketPlayer.paint(g2d);
         for (int i = 0; i < fruitDrop.size(); i++) {
@@ -71,18 +73,17 @@ public class GetFruitGameView extends Page implements Runnable {
         g2d.setFont(new Font("Courier New", 1, 26));
         g2d.drawString("Score: " + score, GameView.WIDTH - 167, 30);
         g2d.drawString("Time: " + tmr.getTime(), 10, 30);
-        if (gameOver)
-        {
+        if (gameOver) {
             paintGameOver(g2d);
         }
     }
-    
-    public void paintGameOver(Graphics2D g2d){
+
+    public void paintGameOver(Graphics2D g2d) {
         g2d.setColor(Color.LIGHT_GRAY);
         g2d.fillRoundRect(150, 175, 500, 400, 20, 20);
         g2d.setColor(Color.BLACK);
         g2d.setFont(new Font("Ayutaya", Font.BOLD, 30));
-        g2d.drawString("Money: "+player.getMoney()+" (+"+(score*5)+")", imgGameOver.getX()+100, imgGameOver.getY()+200);
+        g2d.drawString("Money: " + player.getMoney() + " (+" + (score * 5) + ")", imgGameOver.getX() + 100, imgGameOver.getY() + 200);
         g2d.drawImage(imgGameOver.loadImage(), imgGameOver.getX(), imgGameOver.getY(), imgGameOver.getWidth(), imgGameOver.getHeight(), null);
         g2d.drawImage(imgGoToFarm.loadImage(), imgGoToFarm.getX(), imgGoToFarm.getY(), imgGoToFarm.getWidth(), imgGoToFarm.getHeight(), null);
     }
@@ -160,6 +161,5 @@ public class GetFruitGameView extends Page implements Runnable {
     public void setImgGoToFarm(MyImage imgGoToFarm) {
         this.imgGoToFarm = imgGoToFarm;
     }
-    
-    
+
 }

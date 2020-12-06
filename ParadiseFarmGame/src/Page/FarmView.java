@@ -13,6 +13,14 @@ public class FarmView extends Page {
     private Player player;
 
     private GameView view;
+    
+    private boolean useWateringCan;
+    private boolean useSeedRadish;
+    private boolean useSeedCarrot;
+    private boolean useSeedTomato;
+    private boolean useHand;
+    private PlantPlot[] myPlot;
+    
     private MyImage imgBackground;
     private MyImage imgGoRight;
     private MyImage imgWateringCan;
@@ -23,12 +31,7 @@ public class FarmView extends Page {
     private MyImage imgHand;
     private MyImage imgPlayerCard;
 
-    private boolean useWateringCan;
-    private boolean useSeedRadish;
-    private boolean useSeedCarrot;
-    private boolean useSeedTomato;
-    private boolean useHand;
-    private PlantPlot[] myPlot;
+    
 
     public FarmView(Player player, GameView view) {
         this.view = view;

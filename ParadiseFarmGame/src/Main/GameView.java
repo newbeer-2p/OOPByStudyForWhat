@@ -3,32 +3,45 @@ package Main;
 import Page.*;
 import Page.Page;
 import java.awt.*;
+import java.io.*;
 import javax.swing.*;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import sun.audio.AudioData;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+import sun.audio.ContinuousAudioDataStream;
 
 public class GameView extends JPanel {
+
+    public final static int WIDTH = 800;
+    public final static int HEIGHT = 800;
     
     private Player player;
-    
+
     private JFrame frame;
     private Graphics2D g2d;
     private String pageNow = "MenuView";
     private Page page;
-    
+
     private MyImage icon;
-    
-    public final static int WIDTH = 800;
-    public final static int HEIGHT = 800;
+
+    private AudioInputStream inputStream;
+    private Clip clip;
 
     public GameView(Player player) {
         frame = new JFrame("Paradise Farm");
-        
+
         frame.add(this);
         page = new MenuView(player, this);
-        
+
         icon = new MyImage("fertilizer.png");
-        
+
         frame.setIconImage(icon.loadImage());
-        
+
         frame.setSize(WIDTH, HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
@@ -41,6 +54,22 @@ public class GameView extends JPanel {
         super.paintComponent(g);
         g2d = (Graphics2D) g;
         page.paint(g2d);
+    }
+
+    public void playSound() {
+        try {
+            inputStream = AudioSystem.getAudioInputStream(new File("/sound/"));
+            clip = AudioSystem.getClip();
+            clip.open(inputStream);
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+            //Thread.sleep(10000); // looping as long as this thread is alive
+        } catch (UnsupportedAudioFileException e) {
+//             e.printStackTrace();
+        } catch (IOException e) {
+//            e.printStackTrace();
+        } catch (LineUnavailableException e) {
+//             e.printStackTrace();
+        }
     }
 
     public Graphics2D getG2d() {
@@ -74,6 +103,5 @@ public class GameView extends JPanel {
     public void setFrame(JFrame frame) {
         this.frame = frame;
     }
-    
 
 }
