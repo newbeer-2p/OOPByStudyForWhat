@@ -1,4 +1,4 @@
-package MyLibrary;
+package Minigame;
 
 import java.io.Serializable;
 

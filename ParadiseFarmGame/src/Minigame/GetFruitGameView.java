@@ -1,7 +1,6 @@
 package Minigame;
 
 import Main.*;
-import MyLibrary.*;
 import Page.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -22,6 +21,7 @@ public class GetFruitGameView extends Page implements Runnable {
     private MyImage imgGoToFarm;
     private MyImage imgGameOver;
     private int score;
+    private MyImage imgBackground;
 
     private int gameTime = 20;
 
@@ -33,8 +33,11 @@ public class GetFruitGameView extends Page implements Runnable {
         imgGoToFarm = new MyImage("arrowRight.png",  550, 500);
         imgGoToFarm.setSize(imgGoToFarm.getWidth() / 4, imgGoToFarm.getHeight() / 4);
         
-        imgGameOver = new MyImage("gamerOver.png", 180, 250);
+        imgGameOver = new MyImage("gameOver.png", 180, 250);
         imgGameOver.setSize(imgGameOver.getWidth() / 4, imgGameOver.getHeight() / 4);
+        
+        imgBackground = new MyImage("/background/fruitgame.png");
+        imgBackground.setSize(800, 800);
         
         tmr = new MyTimer(gameTime, true);
         t.start();
@@ -60,6 +63,7 @@ public class GetFruitGameView extends Page implements Runnable {
     public void paint(Graphics2D g2d) {
         this.g2d = g2d;
         
+        g2d.drawImage(imgBackground.loadImage(), imgBackground.getX(), imgBackground.getY(), imgBackground.getWidth(), imgBackground.getHeight(), null);
         basketPlayer.paint(g2d);
         for (int i = 0; i < fruitDrop.size(); i++) {
             fruitDrop.get(i).paint(g2d);
@@ -77,7 +81,8 @@ public class GetFruitGameView extends Page implements Runnable {
         g2d.setColor(Color.LIGHT_GRAY);
         g2d.fillRoundRect(150, 175, 500, 400, 20, 20);
         g2d.setColor(Color.BLACK);
-        g2d.drawString("Money: "+player.getMoney()+" (+"+(score*5)+")", 0, 0);
+        g2d.setFont(new Font("Ayutaya", Font.BOLD, 30));
+        g2d.drawString("Money: "+player.getMoney()+" (+"+(score*5)+")", imgGameOver.getX()+100, imgGameOver.getY()+200);
         g2d.drawImage(imgGameOver.loadImage(), imgGameOver.getX(), imgGameOver.getY(), imgGameOver.getWidth(), imgGameOver.getHeight(), null);
         g2d.drawImage(imgGoToFarm.loadImage(), imgGoToFarm.getX(), imgGoToFarm.getY(), imgGoToFarm.getWidth(), imgGoToFarm.getHeight(), null);
     }
@@ -146,6 +151,14 @@ public class GetFruitGameView extends Page implements Runnable {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public MyImage getImgGoToFarm() {
+        return imgGoToFarm;
+    }
+
+    public void setImgGoToFarm(MyImage imgGoToFarm) {
+        this.imgGoToFarm = imgGoToFarm;
     }
     
     

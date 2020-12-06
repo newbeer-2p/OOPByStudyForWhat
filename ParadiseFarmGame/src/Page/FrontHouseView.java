@@ -2,7 +2,6 @@ package Page;
 
 import Main.MyImage;
 import Main.*;
-import MyLibrary.*;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
