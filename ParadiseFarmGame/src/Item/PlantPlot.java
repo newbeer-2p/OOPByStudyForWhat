@@ -1,6 +1,6 @@
 package Item;
 
-import MyLibrary.MyImage;
+import Main.MyImage;
 import java.io.Serializable;
 
 public class PlantPlot implements Serializable {

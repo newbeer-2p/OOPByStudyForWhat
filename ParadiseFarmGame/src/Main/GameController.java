@@ -38,10 +38,10 @@ public class GameController implements MouseListener, MouseMotionListener {
             view.setPage(new FarmView(player, view));
         } else if (view.getPageNow().equals("MarketView")) {
             view.setPage(new MarketView(player, view));
-        } else if (view.getPageNow().equals("GetFruitGame")) {
-            view.setPage(new GetFruitGame(player, view));
-        } else if (view.getPageNow().equals("CatchWormGame")) {
-            view.setPage(new CatchWormGame(player, view));
+        } else if (view.getPageNow().equals("GetFruitGameView")) {
+            view.setPage(new GetFruitGameView(player, view));
+        } else if (view.getPageNow().equals("CatchWormGameView")) {
+            view.setPage(new CatchWormGameView(player, view));
         }
         view.repaint();
     }
@@ -70,7 +70,22 @@ public class GameController implements MouseListener, MouseMotionListener {
                 view.setPageNow("HouseView");
                 updatePage();
             } else if (mouseBounds.intersects(page.getImgGoLeft().getBounds())) {
-                view.setPageNow("FarmView");
+                int randomEvent = (int) (Math.random() * 3);
+                if (!player.isPlayEvent()) {
+                    player.setPlayEvent(true);
+                    if (randomEvent == 0) {
+                        view.setPageNow("FarmView");
+                    } else if (randomEvent == 1) {
+                        view.setPageNow("GetFruitGameView");
+                    } else if (randomEvent == 2) {
+                        view.setPageNow("CatchWormGameView");
+                    }
+                    System.out.println(randomEvent);
+                }
+                else
+                {
+                    view.setPageNow("FarmView");
+                }
                 updatePage();
             } else if (mouseBounds.intersects(page.getImgGoRight().getBounds())) {
                 view.setPageNow("MarketView");
@@ -90,6 +105,7 @@ public class GameController implements MouseListener, MouseMotionListener {
 
                     player.setDayInFarm(player.getDayInFarm() + 1);
                     page.getImgLamp().setImg("lampOpen.png");
+                    player.setPlayEvent(false);
                     page.setLampOpen(true);
                 }
 
@@ -189,10 +205,10 @@ public class GameController implements MouseListener, MouseMotionListener {
                 player.buyItem(new Seed("tomato"));
                 view.repaint();
             }
-        } else if (view.getPageNow().equals("GetFruitGame")) {
+        } else if (view.getPageNow().equals("GetFruitGameView")) {
 
-        } else if (view.getPageNow().equals("CatchWormGame")) {
-            CatchWormGame page = (CatchWormGame) view.getPage();
+        } else if (view.getPageNow().equals("CatchWormGameView")) {
+            CatchWormGameView page = (CatchWormGameView) view.getPage();
             if (mouseBounds.intersects(page.getWorm().getImg().getBounds())) {
                 page.getWorm().move();
                 page.setScore(page.getScore() + 1);
@@ -248,8 +264,8 @@ public class GameController implements MouseListener, MouseMotionListener {
             }
 
             view.repaint();
-        } else if (view.getPageNow().equals("GetFruitGame")) {
-            GetFruitGame page = (GetFruitGame) view.getPage();
+        } else if (view.getPageNow().equals("GetFruitGameView")) {
+            GetFruitGameView page = (GetFruitGameView) view.getPage();
             page.movePlayer(me.getX(), 0);
 
             view.repaint();

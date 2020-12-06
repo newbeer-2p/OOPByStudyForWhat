@@ -5,7 +5,7 @@ import MyLibrary.*;
 import Page.*;
 import java.awt.*;
 
-public class CatchWormGame extends Page{
+public class CatchWormGameView extends Page{
     
     private Player player;
     
@@ -15,7 +15,8 @@ public class CatchWormGame extends Page{
     private MyTimer tmr;
     private int score;
 
-    public CatchWormGame(Player player, GameView view) {
+    public CatchWormGameView(Player player, GameView view) {
+        this.player = player;
         this.view = view;
         
         tmr = new MyTimer(20, true);

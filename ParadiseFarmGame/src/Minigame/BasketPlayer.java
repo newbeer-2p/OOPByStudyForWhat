@@ -1,5 +1,6 @@
 package Minigame;
 
+import Main.MyImage;
 import MyLibrary.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -10,16 +11,16 @@ import javax.swing.*;
 
 public class BasketPlayer implements Runnable {
 
-    private GetFruitGame p;
+    private GetFruitGameView p;
     private MyImage img;
 
     private final static int MOVEMENT = 50;
 
-    public BasketPlayer(GetFruitGame p) {
+    public BasketPlayer(GetFruitGameView p) {
         this(0, 0, p);
     }
 
-    public BasketPlayer(int x, int y, GetFruitGame p) {
+    public BasketPlayer(int x, int y, GetFruitGameView p) {
         this.p = p;
         img = new MyImage("basket.png", x, y);
         img.setSize(img.getWidth()/3, img.getHeight()/3);

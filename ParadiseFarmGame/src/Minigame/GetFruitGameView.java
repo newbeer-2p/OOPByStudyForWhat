@@ -6,7 +6,7 @@ import Page.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class GetFruitGame extends Page implements Runnable {
+public class GetFruitGameView extends Page implements Runnable {
     
     private Player player;
 
@@ -18,13 +18,24 @@ public class GetFruitGame extends Page implements Runnable {
     private MyTimer tmr;
     private Thread t = new Thread(this);
     private String fruitName[] = {"apple", "carrot", "tomato", "mangosteen", "radish"};
-    private boolean stop;
+    private boolean gameOver;
+    private MyImage imgGoToFarm;
+    private MyImage imgGameOver;
+    private int score;
 
     private int gameTime = 20;
 
-    public GetFruitGame(Player player, GameView view) {
+    public GetFruitGameView(Player player, GameView view) {
+        this.player = player;
         this.view = view;
         basketPlayer = new BasketPlayer(GameView.WIDTH / 2 - 50, GameView.HEIGHT - 190, this);
+        
+        imgGoToFarm = new MyImage("arrowRight.png",  550, 500);
+        imgGoToFarm.setSize(imgGoToFarm.getWidth() / 4, imgGoToFarm.getHeight() / 4);
+        
+        imgGameOver = new MyImage("gamerOver.png", 180, 250);
+        imgGameOver.setSize(imgGameOver.getWidth() / 4, imgGameOver.getHeight() / 4);
+        
         tmr = new MyTimer(gameTime, true);
         t.start();
     }
@@ -34,7 +45,8 @@ public class GetFruitGame extends Page implements Runnable {
         while (true) {
             try {
                 if (gameTime == tmr.getSec()) {
-                    stop = true;
+                    gameOver = true;
+                    view.repaint();
                     break;
                 }
                 addFruit(); // เพิ่มผลไม้
@@ -53,8 +65,21 @@ public class GetFruitGame extends Page implements Runnable {
             fruitDrop.get(i).paint(g2d);
         }
         g2d.setFont(new Font("Courier New", 1, 26));
-        g2d.drawString("Score: " + fruitCollect.size(), GameView.WIDTH - 167, 30);
+        g2d.drawString("Score: " + score, GameView.WIDTH - 167, 30);
         g2d.drawString("Time: " + tmr.getTime(), 10, 30);
+        if (gameOver)
+        {
+            paintGameOver(g2d);
+        }
+    }
+    
+    public void paintGameOver(Graphics2D g2d){
+        g2d.setColor(Color.LIGHT_GRAY);
+        g2d.fillRoundRect(150, 175, 500, 400, 20, 20);
+        g2d.setColor(Color.BLACK);
+        g2d.drawString("Money: "+player.getMoney()+" (+"+(score*5)+")", 0, 0);
+        g2d.drawImage(imgGameOver.loadImage(), imgGameOver.getX(), imgGameOver.getY(), imgGameOver.getWidth(), imgGameOver.getHeight(), null);
+        g2d.drawImage(imgGoToFarm.loadImage(), imgGoToFarm.getX(), imgGoToFarm.getY(), imgGoToFarm.getWidth(), imgGoToFarm.getHeight(), null);
     }
 
     public void movePlayer(int x, int y) {
@@ -73,13 +98,14 @@ public class GetFruitGame extends Page implements Runnable {
 
     public void addFruitCollect(Fruit f) {
         if (!fruitCollect.contains(f)) {
+            score++;
             fruitCollect.add(f);
             fruitDrop.remove(f);
         }
     }
 
-    public boolean isStop() {
-        return stop;
+    public boolean isGameOver() {
+        return gameOver;
     }
 
     public Graphics2D getG2d() {
@@ -112,6 +138,14 @@ public class GetFruitGame extends Page implements Runnable {
 
     public void setView(GameView view) {
         this.view = view;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
     
     

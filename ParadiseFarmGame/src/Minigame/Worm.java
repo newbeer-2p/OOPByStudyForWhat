@@ -1,5 +1,6 @@
 package Minigame;
 
+import Main.MyImage;
 import Main.GameView;
 import MyLibrary.*;
 import java.awt.*;
@@ -10,10 +11,10 @@ public class Worm implements Runnable {
     private Graphics2D g2d;
     private int degree;
     private Thread t;
-    private CatchWormGame p;
+    private CatchWormGameView p;
     private MyImage img;
 
-    public Worm(CatchWormGame p) {
+    public Worm(CatchWormGameView p) {
         this.p = p;
         img = new MyImage("worm.png");
         img.setSize(img.getWidth() / 6, img.getHeight() / 6);

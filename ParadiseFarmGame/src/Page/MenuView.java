@@ -1,5 +1,6 @@
 package Page;
 
+import Main.MyImage;
 import Main.*;
 import MyLibrary.*;
 import java.awt.*;
@@ -15,7 +16,7 @@ public class MenuView extends Page implements Runnable {
     public MenuView(Player player, GameView view) {
         this.view = view;
         
-        imgBackground = new MyImage("/background/Logo.png");
+        imgBackground = new MyImage("/background/menu.png");
         imgBackground.setSize(800, 800);
         imgNew = new MyImage("newgame2.png", 200, 525);
         imgNew.setSize(imgNew.getWidth(), imgNew.getHeight());
