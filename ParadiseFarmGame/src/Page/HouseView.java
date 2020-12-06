@@ -9,7 +9,6 @@ public class HouseView extends Page {
 
     private Player player;
 
-    private Graphics2D g2d;
     private GameView view;
     private MyImage imgGoDown;
     private MyImage imgBghouse;
@@ -43,7 +42,6 @@ public class HouseView extends Page {
 
     @Override
     public void paint(Graphics2D g2d) {
-        this.g2d = g2d;
         g2d.drawImage(imgBghouse.loadImage(), imgBghouse.getX(), imgBghouse.getY(), imgBghouse.getWidth(), imgBghouse.getHeight(), null);
         g2d.drawImage(imgGoDown.loadImage(), imgGoDown.getX(), imgGoDown.getY(), imgGoDown.getWidth(), imgGoDown.getHeight(), null);
         g2d.drawImage(imgCalendar.loadImage(), imgCalendar.getX(), imgCalendar.getY(), imgCalendar.getWidth(), imgCalendar.getHeight(), null);

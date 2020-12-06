@@ -10,11 +10,11 @@ public class MarketView extends Page {
 
     private Player player;
 
-    private Graphics2D g2d;
     private GameView view;
     private MyImage imgGoLeft;
     private MyImage imgbgShop;
     private MyImage imgShop;
+    private MyImage imgFarmer;
     private MyImage imgFertilizer;
     private MyImage imgSeedRadish;
     private MyImage imgSeedCarrot;
@@ -45,13 +45,19 @@ public class MarketView extends Page {
         imgSeedTomato.setSize(imgSeedTomato.getWidth() / 4, imgSeedTomato.getHeight() / 4);
 
         imgPlayerCard = new MyImage("card.png", 20, 20);
+        
+        imgbgShop = new MyImage("/background/market.png");
+        imgbgShop.setSize(800, 800);
+        
+        imgFarmer = new MyImage("Farmer.png", 375, 280);
 
     }
 
     @Override
     public void paint(Graphics2D g2d) {
-        this.g2d = g2d;
-
+        
+        g2d.drawImage(imgbgShop.loadImage(), imgbgShop.getX(), imgbgShop.getY(), imgbgShop.getWidth(), imgbgShop.getHeight(), null);
+        g2d.drawImage(imgFarmer.loadImage(), imgFarmer.getX(), imgFarmer.getY(), imgFarmer.getWidth(), imgFarmer.getHeight(), null);
         g2d.drawImage(imgShop.loadImage(), imgShop.getX(), imgShop.getY(), imgShop.getWidth(), imgShop.getHeight(), null);
         g2d.drawImage(imgFertilizer.loadImage(), imgFertilizer.getX(), imgFertilizer.getY(), imgFertilizer.getWidth(), imgFertilizer.getHeight(), null);
         g2d.drawImage(imgFertilizer.loadImage(), imgFertilizer.getX()+550, imgFertilizer.getY(), imgFertilizer.getWidth(), imgFertilizer.getHeight(), null);

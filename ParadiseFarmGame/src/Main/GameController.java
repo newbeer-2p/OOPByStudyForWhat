@@ -12,39 +12,36 @@ import Page.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class GameController implements MouseListener, MouseMotionListener, WindowListener {
+public class GameController implements MouseListener, MouseMotionListener {
 
     private GameView view;
-    private GameModel model;
+    private Player player;
 
     public GameController() {
-        model = new GameModel();
-        view = new GameView(model.getPlayer());
+        player = new Player();
+        view = new GameView(player);
 
         view.addMouseListener(this);
         view.addMouseMotionListener(this);
-        view.getFrame().addWindowListener(this);
     }
 
     public void updatePage() {
         if (view.getPageNow().equals("MenuView")) {
-            view.setPage(new MenuView(model.getPlayer(), view));
+            view.setPage(new MenuView(player, view));
         } else if (view.getPageNow().equals("NewGameView")) {
-            view.setPage(new NewGameView(model.getPlayer(), view));
-        } else if (view.getPageNow().equals("LoadGameView")) {
-            view.setPage(new LoadGameView(model.getPlayer(), view));
+            view.setPage(new NewGameView(player, view));
         } else if (view.getPageNow().equals("FrontHouseView")) {
-            view.setPage(new FrontHouseView(model.getPlayer(), view));
+            view.setPage(new FrontHouseView(player, view));
         } else if (view.getPageNow().equals("HouseView")) {
-            view.setPage(new HouseView(model.getPlayer(), view));
+            view.setPage(new HouseView(player, view));
         } else if (view.getPageNow().equals("FarmView")) {
-            view.setPage(new FarmView(model.getPlayer(), view));
+            view.setPage(new FarmView(player, view));
         } else if (view.getPageNow().equals("MarketView")) {
-            view.setPage(new MarketView(model.getPlayer(), view));
+            view.setPage(new MarketView(player, view));
         } else if (view.getPageNow().equals("GetFruitGame")) {
-            view.setPage(new GetFruitGame(model.getPlayer(), view));
+            view.setPage(new GetFruitGame(player, view));
         } else if (view.getPageNow().equals("CatchWormGame")) {
-            view.setPage(new CatchWormGame(model.getPlayer(), view));
+            view.setPage(new CatchWormGame(player, view));
         }
         view.repaint();
     }
@@ -57,23 +54,9 @@ public class GameController implements MouseListener, MouseMotionListener, Windo
             if (mouseBounds.intersects(page.getImgNew().getBounds())) {
                 view.setPageNow("NewGameView");
                 updatePage();
-            } else if (mouseBounds.intersects(page.getImgLoad().getBounds())) {
-                view.setPageNow("LoadGameView");
-                updatePage();
             }
         } else if (view.getPageNow().equals("NewGameView")) {
             NewGameView page = (NewGameView) view.getPage();
-            if (mouseBounds.intersects(page.getImgBack().getBounds())) {
-                view.setPageNow("MenuView");
-                updatePage();
-            } else if (mouseBounds.intersects(page.getImgNext().getBounds())) {
-                view.setPageNow("FrontHouseView");
-                model.setPlayer(new Player());
-                updatePage();
-            }
-
-        } else if (view.getPageNow().equals("LoadGameView")) {
-            LoadGameView page = (LoadGameView) view.getPage();
             if (mouseBounds.intersects(page.getImgBack().getBounds())) {
                 view.setPageNow("MenuView");
                 updatePage();
@@ -101,10 +84,11 @@ public class GameController implements MouseListener, MouseMotionListener, Windo
                 updatePage();
             } else if (mouseBounds.intersects(page.getImgBed().getBounds())) {
                 if (!page.isLampOpen()) {
-                    for (int i = 0; i < model.getPlayer().getMyPlot().length; i++) {
-                        model.getPlayer().getMyPlot()[i].grow();
+                    for (int i = 0; i < player.getMyPlot().length; i++) {
+                        player.getMyPlot()[i].grow();
                     }
-                    model.getPlayer().setDayInFarm(model.getPlayer().getDayInFarm() + 1);
+
+                    player.setDayInFarm(player.getDayInFarm() + 1);
                     page.getImgLamp().setImg("lampOpen.png");
                     page.setLampOpen(true);
                 }
@@ -162,19 +146,29 @@ public class GameController implements MouseListener, MouseMotionListener, Windo
                             }
                         } else if (mouseBounds.intersects(page.getImgHand().getBounds())) {
                             if (plot.isCanGet()) {
-                                model.getPlayer().addItem(plot.getProduct());
+                                player.addItem(plot.getProduct());
+                                if (plot.getProduct().getName().equals("radish")) {
+                                    player.setMoney(player.getMoney() + 200);
+                                } else if (plot.getProduct().getName().equals("carrot")) {
+                                    player.setMoney(player.getMoney() + 300);
+                                } else if (plot.getProduct().getName().equals("tomato")) {
+                                    player.setMoney(player.getMoney() + 400);
+                                }
                                 plot.setSeed(null);
-                                model.getPlayer().setMoney(model.getPlayer().getMoney() + 100);
+
                             }
-                        } else if (mouseBounds.intersects(page.getImgSeedRadish().getBounds()) && model.getPlayer().getInventorySeed()[0].getNumItem() != 0) {
-                            if (plot.addSeed("radish"))
-                                model.getPlayer().getInventorySeed()[0].useSeed();
-                        } else if (mouseBounds.intersects(page.getImgSeedCarrot().getBounds()) && model.getPlayer().getInventorySeed()[1].getNumItem() != 0) {
-                            if (plot.addSeed("carrot"))
-                                model.getPlayer().getInventorySeed()[1].useSeed();
-                        } else if (mouseBounds.intersects(page.getImgSeedTomato().getBounds()) && model.getPlayer().getInventorySeed()[2].getNumItem() != 0) {
-                            if (plot.addSeed("tomato"))
-                                model.getPlayer().getInventorySeed()[2].useSeed();
+                        } else if (mouseBounds.intersects(page.getImgSeedRadish().getBounds()) && player.getInventorySeed()[0].getNumItem() != 0) {
+                            if (plot.addSeed("radish")) {
+                                player.getInventorySeed()[0].useSeed();
+                            }
+                        } else if (mouseBounds.intersects(page.getImgSeedCarrot().getBounds()) && player.getInventorySeed()[1].getNumItem() != 0) {
+                            if (plot.addSeed("carrot")) {
+                                player.getInventorySeed()[1].useSeed();
+                            }
+                        } else if (mouseBounds.intersects(page.getImgSeedTomato().getBounds()) && player.getInventorySeed()[2].getNumItem() != 0) {
+                            if (plot.addSeed("tomato")) {
+                                player.getInventorySeed()[2].useSeed();
+                            }
                         }
                     }
                 }
@@ -186,13 +180,13 @@ public class GameController implements MouseListener, MouseMotionListener, Windo
                 view.setPageNow("FrontHouseView");
                 updatePage();
             } else if (mouseBounds.intersects(page.getImgSeedRadish().getBounds())) {
-                model.getPlayer().buyItem(new Seed("radish"));
+                player.buyItem(new Seed("radish"));
                 view.repaint();
             } else if (mouseBounds.intersects(page.getImgSeedCarrot().getBounds())) {
-                model.getPlayer().buyItem(new Seed("carrot"));
+                player.buyItem(new Seed("carrot"));
                 view.repaint();
             } else if (mouseBounds.intersects(page.getImgSeedTomato().getBounds())) {
-                model.getPlayer().buyItem(new Seed("tomato"));
+                player.buyItem(new Seed("tomato"));
                 view.repaint();
             }
         } else if (view.getPageNow().equals("GetFruitGame")) {
@@ -208,29 +202,24 @@ public class GameController implements MouseListener, MouseMotionListener, Windo
     }
 
     @Override
-    public void mousePressed(MouseEvent me
-    ) {
+    public void mousePressed(MouseEvent me) {
 
     }
 
     @Override
-    public void mouseReleased(MouseEvent me
-    ) {
+    public void mouseReleased(MouseEvent me) {
     }
 
     @Override
-    public void mouseEntered(MouseEvent me
-    ) {
+    public void mouseEntered(MouseEvent me) {
     }
 
     @Override
-    public void mouseExited(MouseEvent me
-    ) {
+    public void mouseExited(MouseEvent me) {
     }
 
     @Override
-    public void mouseDragged(MouseEvent me
-    ) {
+    public void mouseDragged(MouseEvent me) {
     }
 
     @Override
@@ -243,11 +232,6 @@ public class GameController implements MouseListener, MouseMotionListener, Windo
                 page.setImgNew(new MyImage("newgame1.png", page.getImgNew().getX(), page.getImgNew().getY()));
             } else {
                 page.setImgNew(new MyImage("newgame2.png", page.getImgNew().getX(), page.getImgNew().getY()));
-            }
-            if (mouseBounds.intersects(page.getImgLoad().getBounds())) {
-                page.setImgLoad(new MyImage("loadgame1.png", page.getImgLoad().getX(), page.getImgLoad().getY()));
-            } else {
-                page.setImgLoad(new MyImage("loadgame2.png", page.getImgLoad().getX(), page.getImgLoad().getY()));
             }
         } else if (view.getPageNow().equals("FarmView")) {
             FarmView page = (FarmView) view.getPage();
@@ -270,36 +254,6 @@ public class GameController implements MouseListener, MouseMotionListener, Windo
 
             view.repaint();
         }
-    }
-
-    @Override
-    public void windowOpened(WindowEvent we) {
-
-    }
-
-    @Override
-    public void windowClosing(WindowEvent we) {
-//        model.saveData();
-    }
-
-    @Override
-    public void windowClosed(WindowEvent we) {
-    }
-
-    @Override
-    public void windowIconified(WindowEvent we) {
-    }
-
-    @Override
-    public void windowDeiconified(WindowEvent we) {
-    }
-
-    @Override
-    public void windowActivated(WindowEvent we) {
-    }
-
-    @Override
-    public void windowDeactivated(WindowEvent we) {
     }
 
     public static void main(String[] args) {

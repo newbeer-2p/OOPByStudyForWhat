@@ -12,7 +12,6 @@ public class FarmView extends Page {
 
     private Player player;
 
-    private Graphics2D g2d;
     private GameView view;
     private MyImage imgBackground;
     private MyImage imgGoRight;
@@ -23,28 +22,20 @@ public class FarmView extends Page {
     private MyImage imgCancel;
     private MyImage imgHand;
     private MyImage imgPlayerCard;
-    
+
     private boolean useWateringCan;
     private boolean useSeedRadish;
     private boolean useSeedCarrot;
     private boolean useSeedTomato;
     private boolean useHand;
     private PlantPlot[] myPlot;
-//    private MyImage[] imgPlantPlot;
 
     public FarmView(Player player, GameView view) {
         this.view = view;
         this.player = player;
-        
-//        imgPlantPlot = new MyImage[20];
 
-//        myPlot = new PlantPlot[20];
-//        for (int i = 0; i < myPlot.length; i++)
-//        {
-//            myPlot[i].setImg(new MyImage(player.getImgPlantPlot()[i]));
-//            myPlot[i].getImg().setSize(100, 100);
-//        }
-        
+        myPlot = player.getMyPlot();
+
         imgBackground = new MyImage("/background/Farm.png");
         imgBackground.setSize(800, 800);
 
@@ -52,14 +43,12 @@ public class FarmView extends Page {
         imgGoRight.setSize(imgGoRight.getWidth() / 4, imgGoRight.getHeight() / 4);
         imgGoRight.setLocation(GameView.WIDTH - imgGoRight.getWidth() - 8, GameView.HEIGHT / 2 - imgGoRight.getHeight() / 2 - 15);
 
-        myPlot = player.getMyPlot();
-
         imgWateringCan = new MyImage("wateringcan.png", GameView.WIDTH - 100, GameView.HEIGHT - 110);
         imgWateringCan.setSize(imgWateringCan.getWidth() / 8, imgWateringCan.getHeight() / 8);
 
         imgCancel = new MyImage("cancel.png", 10, GameView.HEIGHT - 140);
         imgCancel.setSize(imgCancel.getWidth() / 4, imgCancel.getHeight() / 4);
-        
+
         imgHand = new MyImage("hand.png", GameView.WIDTH - 180, GameView.HEIGHT - 120);
         imgHand.setSize(imgHand.getWidth() / 10, imgHand.getHeight() / 10);
 
@@ -69,18 +58,17 @@ public class FarmView extends Page {
         imgSeedCarrot.setSize(imgSeedCarrot.getWidth() / 6, imgSeedCarrot.getHeight() / 6);
         imgSeedTomato = new MyImage("tomatoSeed.png", GameView.WIDTH - 480, GameView.HEIGHT - 120);
         imgSeedTomato.setSize(imgSeedTomato.getWidth() / 6, imgSeedTomato.getHeight() / 6);
-        
+
         imgPlayerCard = new MyImage("card.png", 20, 20);
 
     }
 
     @Override
     public void paint(Graphics2D g2d) {
-        this.g2d = g2d;
-        
+
         g2d.drawImage(imgBackground.loadImage(), 0, 0, null);
-        
-        if (useWateringCan || useSeedRadish || useSeedCarrot || useSeedTomato|| useHand) {
+
+        if (useWateringCan || useSeedRadish || useSeedCarrot || useSeedTomato || useHand) {
             g2d.drawImage(imgCancel.loadImage(), imgCancel.getX(), imgCancel.getY(), imgCancel.getWidth(), imgCancel.getHeight(), null);
         }
 
@@ -92,13 +80,12 @@ public class FarmView extends Page {
                 g2d.setColor(Color.BLACK);
                 g2d.setStroke(new BasicStroke(5));
                 g2d.drawRect(myPlot[(i * 4) + j].getImg().getX(), myPlot[(i * 4) + j].getImg().getY(), myPlot[(i * 4) + j].getImg().getWidth(), myPlot[(i * 4) + j].getImg().getHeight());
-//                g2d.drawRoundRect(myPlot[(i * 4) + j].getImg().getX(), myPlot[(i * 4) + j].getImg().getY(), myPlot[(i * 4) + j].getImg().getWidth(), myPlot[(i * 4) + j].getImg().getHeight(), 5, );
             }
         }
         paintMenuBar(g2d);
         drawPlayerCard(g2d);
     }
-    
+
     public void paintMenuBar(Graphics2D g2d) {
         g2d.drawImage(imgWateringCan.loadImage(), imgWateringCan.getX(), imgWateringCan.getY(), imgWateringCan.getWidth(), imgWateringCan.getHeight(), null);
         g2d.drawImage(imgHand.loadImage(), imgHand.getX(), imgHand.getY(), imgHand.getWidth(), imgHand.getHeight(), null);
@@ -112,7 +99,7 @@ public class FarmView extends Page {
         g2d.drawImage(imgSeedTomato.loadImage(), imgSeedTomato.getX(), imgSeedTomato.getY(), imgSeedTomato.getWidth(), imgSeedTomato.getHeight(), null);
         g2d.drawString(player.getInventorySeed()[2].getNumItem() + "", imgSeedTomato.getX() + imgSeedTomato.getWidth(), imgSeedTomato.getY() + imgSeedTomato.getHeight());
     }
-    
+
     public void drawPlayerCard(Graphics2D g2d) {
         g2d.drawImage(imgPlayerCard.loadImage(), imgPlayerCard.getX(), imgPlayerCard.getY(), imgPlayerCard.getWidth(), imgPlayerCard.getHeight(), null);
         g2d.setFont(new Font("Ayutaya", Font.PLAIN, 27));
@@ -226,7 +213,5 @@ public class FarmView extends Page {
     public void setUseHand(boolean useHand) {
         this.useHand = useHand;
     }
-    
-    
 
 }

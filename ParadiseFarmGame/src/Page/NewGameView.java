@@ -13,9 +13,10 @@ import java.awt.Graphics2D;
 public class NewGameView extends Page{
     
     private GameView view;
-    private Graphics2D g2d;
     private MyImage imgBack;
     private MyImage imgNext;
+    private MyImage imgHowToPlay;
+    private MyImage imgLogo;
     
     private Player player;
 
@@ -27,14 +28,17 @@ public class NewGameView extends Page{
         imgBack.setSize(imgBack.getWidth()/4, imgBack.getHeight()/4);
         imgNext = new MyImage("arrowRight.png", GameView.WIDTH-93, GameView.HEIGHT-105);
         imgNext.setSize(imgNext.getWidth()/4, imgNext.getHeight()/4);
+        imgHowToPlay = new MyImage("HowToPlay.png", 45, 325);
+        imgHowToPlay.setSize(imgHowToPlay.getWidth(), imgHowToPlay.getHeight());
+        imgLogo = new MyImage("ParadiseFarmLogo.png", 130, 25);
     }
 
     @Override
     public void paint(Graphics2D g2d) {
-        g2d.setFont(new Font("Thonburi", Font.PLAIN, 50));
-        g2d.drawString("วิธีการเล่น", 0, 50);
         g2d.drawImage(imgBack.loadImage(), imgBack.getX(), imgBack.getY(), imgBack.getWidth(), imgBack.getHeight(), null);
         g2d.drawImage(imgNext.loadImage(), imgNext.getX(), imgNext.getY(), imgNext.getWidth(), imgNext.getHeight(), null);
+        g2d.drawImage(imgHowToPlay.loadImage(), imgHowToPlay.getX(), imgHowToPlay.getY(), imgHowToPlay.getWidth(), imgHowToPlay.getHeight(), null);
+        g2d.drawImage(imgLogo.loadImage(), imgLogo.getX(), imgLogo.getY(), imgLogo.getWidth(), imgLogo.getHeight(), null); 
     }
 
     public MyImage getImgBack() {

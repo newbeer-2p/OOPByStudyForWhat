@@ -10,7 +10,6 @@ public class FrontHouseView extends Page {
 
     private Player player;
 
-    private Graphics2D g2d;
     private GameView view;
     private MyImage imgGoUp;
     private MyImage imgGoLeft;
@@ -52,7 +51,6 @@ public class FrontHouseView extends Page {
 
     @Override
     public void paint(Graphics2D g2d) {
-        this.g2d = g2d;
 
         g2d.drawImage(imgbackground.loadImage(), imgbackground.getX(), imgbackground.getY(), imgbackground.getWidth(), imgbackground.getHeight(), null);
         g2d.drawImage(imgFence.loadImage(), imgFence.getX(), imgFence.getY(), imgFence.getWidth(), imgFence.getHeight(), null);

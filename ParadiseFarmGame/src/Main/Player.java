@@ -10,9 +10,8 @@ public class Player implements Serializable {
     private double money = 400;
     private int dayInFarm = 1;
     private ArrayList<Item> inventory;
-    private Seed[] inventorySeed = {new Seed("radish", 1), new Seed("carrot", 1), new Seed("tomato", 1)};
+    private Seed[] inventorySeed = {new Seed("radish"), new Seed("carrot"), new Seed("tomato")};
     private PlantPlot[] myPlot;
-//    private String[] imgPlantPlot;
 
     public Player() {
         name = "OOP";
@@ -23,10 +22,6 @@ public class Player implements Serializable {
             myPlot[i] = new PlantPlot(i);
             myPlot[i].getImg().setSize(100, 100);
         }
-//        imgPlantPlot = new String[20];
-//        for (int i = 0; i < imgPlantPlot.length; i++) {
-//            imgPlantPlot[i] = "/plantplot/crop.png";
-//        }
 
     }
 
@@ -102,6 +97,7 @@ public class Player implements Serializable {
     public void setMyPlot(PlantPlot[] myPlot) {
         this.myPlot = myPlot;
     }
+    
     public double getMoney() {
         return money;
     }
@@ -117,13 +113,5 @@ public class Player implements Serializable {
     public void setDayInFarm(int dayInFarm) {
         this.dayInFarm = dayInFarm;
     }
-
-//    public String[] getImgPlantPlot() {
-//        return imgPlantPlot;
-//    }
-//
-//    public void setImgPlantPlot(String[] imgPlantPlot) {
-//        this.imgPlantPlot = imgPlantPlot;
-//    }
 
 }
