@@ -7,7 +7,6 @@ package Main;
 
 import Item.*;
 import Minigame.*;
-import MyLibrary.*;
 import Page.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -80,7 +79,6 @@ public class GameController implements MouseListener, MouseMotionListener {
                     } else if (randomEvent == 2) {
                         view.setPageNow("CatchWormGameView");
                     }
-                    System.out.println(randomEvent);
                 }
                 else
                 {
@@ -206,6 +204,12 @@ public class GameController implements MouseListener, MouseMotionListener {
                 view.repaint();
             }
         } else if (view.getPageNow().equals("GetFruitGameView")) {
+            GetFruitGameView page = (GetFruitGameView) view.getPage();
+            if (page.isGameOver() && mouseBounds.intersects(page.getImgGoToFarm().getBounds())){
+                view.setPageNow("FarmView");
+                player.setMoney(player.getMoney()+(5*page.getScore()));
+                updatePage();
+            }
 
         } else if (view.getPageNow().equals("CatchWormGameView")) {
             CatchWormGameView page = (CatchWormGameView) view.getPage();
@@ -213,6 +217,10 @@ public class GameController implements MouseListener, MouseMotionListener {
                 page.getWorm().move();
                 page.setScore(page.getScore() + 1);
 
+            } else if (page.isGameOver() && mouseBounds.intersects(page.getImgGoToFarm().getBounds())){
+                view.setPageNow("FarmView");
+                player.setMoney(player.getMoney()+(5*page.getScore()));
+                updatePage();
             }
         }
     }
@@ -267,7 +275,10 @@ public class GameController implements MouseListener, MouseMotionListener {
         } else if (view.getPageNow().equals("GetFruitGameView")) {
             GetFruitGameView page = (GetFruitGameView) view.getPage();
             page.movePlayer(me.getX(), 0);
-
+            view.repaint();
+        } else if (view.getPageNow().equals("CatchWormGameView")) {
+            CatchWormGameView page = (CatchWormGameView) view.getPage();
+            page.getImgSpray().setLocation(me.getX()-100, me.getY()-25);
             view.repaint();
         }
     }

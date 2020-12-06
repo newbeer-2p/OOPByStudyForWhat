@@ -1,7 +1,6 @@
 package Minigame;
 
 import Main.MyImage;
-import MyLibrary.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;

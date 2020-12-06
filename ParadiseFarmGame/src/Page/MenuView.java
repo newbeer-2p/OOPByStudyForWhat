@@ -2,7 +2,6 @@ package Page;
 
 import Main.MyImage;
 import Main.*;
-import MyLibrary.*;
 import java.awt.*;
 
 public class MenuView extends Page implements Runnable {

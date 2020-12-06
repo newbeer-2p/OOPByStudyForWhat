@@ -2,7 +2,6 @@ package Minigame;
 
 import Main.MyImage;
 import Main.GameView;
-import MyLibrary.*;
 import java.awt.*;
 import Page.*;
 
@@ -18,14 +17,14 @@ public class Worm implements Runnable {
         this.p = p;
         img = new MyImage("worm.png");
         img.setSize(img.getWidth() / 6, img.getHeight() / 6);
-        img.setLocation((int) (Math.random() * (GameView.WIDTH - img.getWidth() - 100)), (int) (Math.random() * (GameView.HEIGHT - img.getHeight()-100)));
+        move();
         t = new Thread(this);
         t.start();
     }
 
     @Override
     public void run() {
-        while (true) {
+        while (!p.isGameOver()) {
             try {
                 p.getView().repaint();
                 Thread.sleep(50);
@@ -41,7 +40,10 @@ public class Worm implements Runnable {
     }
 
     public void move() {
-        img.setLocation((int) (Math.random() * (GameView.WIDTH - img.getWidth())), (int) (Math.random() * (GameView.HEIGHT + img.getHeight())));
+        if (!p.isGameOver()) {
+            img.setLocation((int) (Math.random() * 700), (int) (Math.random() * 700));
+
+        }
     }
 
     public MyImage getImg() {
@@ -51,7 +53,5 @@ public class Worm implements Runnable {
     public void setImg(MyImage img) {
         this.img = img;
     }
-    
-    
 
 }
