@@ -154,9 +154,9 @@ public class GameController implements MouseListener, MouseMotionListener, Windo
                 page.setUseSeedTomato(false);
                 page.getImgSeedTomato().setLocation(GameView.WIDTH - 480, GameView.HEIGHT - 120);
             } else if (page.isUseWateringCan() || page.isUseSeedRadish() || page.isUseSeedCarrot() || page.isUseSeedTomato() || page.isUseHand()) {
-                for (int i = 0; i < page.getMyPlot().length; i++) {
-                    if (mouseBounds.intersects(page.getMyPlot()[i].getImg().getBounds())) {
-                        PlantPlot plot = page.getMyPlot()[i];
+                for (int i = 0; i < player.getMyPlot().length; i++) {
+                    if (mouseBounds.intersects(player.getMyPlot()[i].getImg().getBounds())) {
+                        PlantPlot plot = player.getMyPlot()[i];
                         if (mouseBounds.intersects(page.getImgWateringCan().getBounds())) {
                             if (plot.getSeed() != null) {
                                 plot.watering();

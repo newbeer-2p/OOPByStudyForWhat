@@ -15,7 +15,6 @@ public class FarmView extends Page {
     private boolean useSeedCarrot;
     private boolean useSeedTomato;
     private boolean useHand;
-    private PlantPlot[] myPlot;
     
     private MyImage imgBackground;
     private MyImage imgGoRight;
@@ -31,7 +30,7 @@ public class FarmView extends Page {
 
     public FarmView() {
 
-        myPlot = GameController.player.getMyPlot();
+        
 
         imgBackground = new MyImage("/background/Farm.png");
         imgBackground.setSize(800, 800);
@@ -70,13 +69,13 @@ public class FarmView extends Page {
         }
 
         g2d.drawImage(imgGoRight.loadImage(), imgGoRight.getX(), imgGoRight.getY(), imgGoRight.getWidth(), imgGoRight.getHeight(), null);
-        for (int i = 0; i < myPlot.length / 4; i++) {
-            for (int j = 0; j < myPlot.length / 5; j++) {
-                myPlot[(i * 4) + j].getImg().setLocation(100 + (i * 100), 250 + (j * 100));
-                g2d.drawImage(myPlot[(i * 4) + j].getImg().loadImage(), myPlot[(i * 4) + j].getImg().getX(), myPlot[(i * 4) + j].getImg().getY(), myPlot[(i * 4) + j].getImg().getWidth(), myPlot[(i * 4) + j].getImg().getHeight(), null);
+        for (int i = 0; i < GameController.player.getMyPlot().length / 4; i++) {
+            for (int j = 0; j < GameController.player.getMyPlot().length / 5; j++) {
+                GameController.player.getMyPlot()[(i * 4) + j].getImg().setLocation(100 + (i * 100), 250 + (j * 100));
+                g2d.drawImage(GameController.player.getMyPlot()[(i * 4) + j].getImg().loadImage(), GameController.player.getMyPlot()[(i * 4) + j].getImg().getX(), GameController.player.getMyPlot()[(i * 4) + j].getImg().getY(), GameController.player.getMyPlot()[(i * 4) + j].getImg().getWidth(), GameController.player.getMyPlot()[(i * 4) + j].getImg().getHeight(), null);
                 g2d.setColor(Color.BLACK);
                 g2d.setStroke(new BasicStroke(5));
-                g2d.drawRect(myPlot[(i * 4) + j].getImg().getX(), myPlot[(i * 4) + j].getImg().getY(), myPlot[(i * 4) + j].getImg().getWidth(), myPlot[(i * 4) + j].getImg().getHeight());
+                g2d.drawRect(GameController.player.getMyPlot()[(i * 4) + j].getImg().getX(), GameController.player.getMyPlot()[(i * 4) + j].getImg().getY(), GameController.player.getMyPlot()[(i * 4) + j].getImg().getWidth(), GameController.player.getMyPlot()[(i * 4) + j].getImg().getHeight());
             }
         }
         paintMenuBar(g2d);
@@ -113,14 +112,6 @@ public class FarmView extends Page {
 
     public void setImgGoRight(MyImage imgGoRight) {
         this.imgGoRight = imgGoRight;
-    }
-
-    public PlantPlot[] getMyPlot() {
-        return myPlot;
-    }
-
-    public void setMyPlot(PlantPlot[] myPlot) {
-        this.myPlot = myPlot;
     }
 
     public MyImage getImgWateringCan() {
