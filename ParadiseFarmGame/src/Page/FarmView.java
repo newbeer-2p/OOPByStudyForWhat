@@ -9,10 +9,6 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 
 public class FarmView extends Page {
-
-    private Player player;
-
-    private GameView view;
     
     private boolean useWateringCan;
     private boolean useSeedRadish;
@@ -33,11 +29,9 @@ public class FarmView extends Page {
 
     
 
-    public FarmView(Player player, GameView view) {
-        this.view = view;
-        this.player = player;
+    public FarmView() {
 
-        myPlot = player.getMyPlot();
+        myPlot = GameController.player.getMyPlot();
 
         imgBackground = new MyImage("/background/Farm.png");
         imgBackground.setSize(800, 800);
@@ -96,21 +90,21 @@ public class FarmView extends Page {
         g2d.setColor(Color.BLACK);
         g2d.setFont(new Font("Ayutaya", Font.PLAIN, 30));
         g2d.drawImage(imgSeedRadish.loadImage(), imgSeedRadish.getX(), imgSeedRadish.getY(), imgSeedRadish.getWidth(), imgSeedRadish.getHeight(), null);
-        g2d.drawString(player.getInventorySeed()[0].getNumItem() + "", imgSeedRadish.getX() + imgSeedRadish.getWidth(), imgSeedRadish.getY() + imgSeedRadish.getHeight());
+        g2d.drawString(GameController.player.getInventorySeed()[0].getNumItem() + "", imgSeedRadish.getX() + imgSeedRadish.getWidth(), imgSeedRadish.getY() + imgSeedRadish.getHeight());
         g2d.drawImage(imgSeedCarrot.loadImage(), imgSeedCarrot.getX(), imgSeedCarrot.getY(), imgSeedCarrot.getWidth(), imgSeedCarrot.getHeight(), null);
-        g2d.drawString(player.getInventorySeed()[1].getNumItem() + "", imgSeedCarrot.getX() + imgSeedCarrot.getWidth(), imgSeedCarrot.getY() + imgSeedCarrot.getHeight());
+        g2d.drawString(GameController.player.getInventorySeed()[1].getNumItem() + "", imgSeedCarrot.getX() + imgSeedCarrot.getWidth(), imgSeedCarrot.getY() + imgSeedCarrot.getHeight());
         g2d.drawImage(imgSeedTomato.loadImage(), imgSeedTomato.getX(), imgSeedTomato.getY(), imgSeedTomato.getWidth(), imgSeedTomato.getHeight(), null);
-        g2d.drawString(player.getInventorySeed()[2].getNumItem() + "", imgSeedTomato.getX() + imgSeedTomato.getWidth(), imgSeedTomato.getY() + imgSeedTomato.getHeight());
+        g2d.drawString(GameController.player.getInventorySeed()[2].getNumItem() + "", imgSeedTomato.getX() + imgSeedTomato.getWidth(), imgSeedTomato.getY() + imgSeedTomato.getHeight());
     }
 
     public void drawPlayerCard(Graphics2D g2d) {
         g2d.drawImage(imgPlayerCard.loadImage(), imgPlayerCard.getX(), imgPlayerCard.getY(), imgPlayerCard.getWidth(), imgPlayerCard.getHeight(), null);
         g2d.setFont(new Font("Ayutaya", Font.PLAIN, 27));
         g2d.setColor(Color.BLACK);
-        g2d.drawString("Name: " + player.getName(), imgPlayerCard.getX() + 125, imgPlayerCard.getY() + 50);
+        g2d.drawString("Name: " + GameController.player.getName(), imgPlayerCard.getX() + 125, imgPlayerCard.getY() + 50);
         g2d.drawString("Sex: Female", imgPlayerCard.getX() + 125, imgPlayerCard.getY() + 115);
-        g2d.drawString("Day: " + player.getDayInFarm(), imgPlayerCard.getX() + 20, imgPlayerCard.getY() + 175);
-        g2d.drawString("Money: " + player.showMoney(), imgPlayerCard.getX() + 125, imgPlayerCard.getY() + 175);
+        g2d.drawString("Day: " + GameController.player.getDayInFarm(), imgPlayerCard.getX() + 20, imgPlayerCard.getY() + 175);
+        g2d.drawString("Money: " + GameController.player.showMoney(), imgPlayerCard.getX() + 125, imgPlayerCard.getY() + 175);
     }
 
     public MyImage getImgGoRight() {

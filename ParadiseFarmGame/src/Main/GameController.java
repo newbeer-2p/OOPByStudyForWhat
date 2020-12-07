@@ -11,36 +11,40 @@ import Page.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class GameController implements MouseListener, MouseMotionListener {
+public class GameController implements MouseListener, MouseMotionListener, WindowListener {
 
-    private GameView view;
-    private Player player;
+    public static GameView view;
+    public static GameModel model;
+    public static Player player;
 
     public GameController() {
+
+        model = new GameModel();
         player = new Player();
-        view = new GameView(player);
+        view = new GameView();
 
         view.addMouseListener(this);
         view.addMouseMotionListener(this);
+        view.getFrame().addWindowListener(this);
     }
 
     public void updatePage() {
         if (view.getPageNow().equals("MenuView")) {
-            view.setPage(new MenuView(player, view));
+            view.setPage(new MenuView());
         } else if (view.getPageNow().equals("NewGameView")) {
-            view.setPage(new NewGameView(view));
+            view.setPage(new NewGameView());
         } else if (view.getPageNow().equals("FrontHouseView")) {
-            view.setPage(new FrontHouseView(player, view));
+            view.setPage(new FrontHouseView());
         } else if (view.getPageNow().equals("HouseView")) {
-            view.setPage(new HouseView(player, view));
+            view.setPage(new HouseView());
         } else if (view.getPageNow().equals("FarmView")) {
-            view.setPage(new FarmView(player, view));
+            view.setPage(new FarmView());
         } else if (view.getPageNow().equals("MarketView")) {
-            view.setPage(new MarketView(player, view));
+            view.setPage(new MarketView());
         } else if (view.getPageNow().equals("GetFruitGameView")) {
-            view.setPage(new GetFruitGameView(player, view));
+            view.setPage(new GetFruitGameView());
         } else if (view.getPageNow().equals("CatchWormGameView")) {
-            view.setPage(new CatchWormGameView(player, view));
+            view.setPage(new CatchWormGameView());
         }
         view.repaint();
     }
@@ -206,7 +210,7 @@ public class GameController implements MouseListener, MouseMotionListener {
             GetFruitGameView page = (GetFruitGameView) view.getPage();
             if (page.isGameOver() && mouseBounds.intersects(page.getImgGoToFarm().getBounds())) {
                 view.setPageNow("FarmView");
-                player.setMoney(player.getMoney() + (5 * page.getScore()));
+                player.setMoney(player.getMoney() + (3 * page.getScore()));
                 updatePage();
             }
 
@@ -225,8 +229,7 @@ public class GameController implements MouseListener, MouseMotionListener {
     }
 
     @Override
-    public void mouseMoved(MouseEvent me
-    ) {
+    public void mouseMoved(MouseEvent me) {
         Rectangle mouseBounds = new Rectangle(me.getX(), me.getY(), 1, 1);
         if (view.getPageNow().equals("MenuView")) {
             MenuView page = (MenuView) view.getPage();
@@ -260,7 +263,36 @@ public class GameController implements MouseListener, MouseMotionListener {
             view.repaint();
         }
     }
+    
+    @Override
+    public void windowClosing(WindowEvent we) {
+        model.saveData(player);
+    }
 
+    @Override
+    public void windowOpened(WindowEvent we) {
+    }
+
+    @Override
+    public void windowClosed(WindowEvent we) {
+    }
+
+    @Override
+    public void windowIconified(WindowEvent we) {
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent we) {
+    }
+
+    @Override
+    public void windowActivated(WindowEvent we) {
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent we) {
+    }
+    
     @Override
     public void mousePressed(MouseEvent me) {
 

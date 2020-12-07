@@ -1,12 +1,10 @@
 package Item;
 
 import Main.MyImage;
-import java.io.Serializable;
 
-public class Item implements Serializable {
+public class Item{
 
     protected String name;
-    protected MyImage img;
     protected double priceBuy;
     protected double priceSell;
     protected int numItem;
@@ -36,14 +34,6 @@ public class Item implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public MyImage getImg() {
-        return img;
-    }
-
-    public void setImg(MyImage img) {
-        this.img = img;
     }
 
     public double getPriceBuy() {

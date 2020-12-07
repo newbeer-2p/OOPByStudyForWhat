@@ -62,9 +62,7 @@ public class MyImage implements Serializable{
         return this.getBounds().intersects(img.getBounds());
     }
 
-    public void getBorder(Graphics2D g2d) {
-        g2d.drawRect(x, y, width, height);
-    }
+   
 
     public Rectangle getBounds() {
         return new Rectangle(x, y, width, height);

@@ -7,9 +7,6 @@ import java.awt.Graphics2D;
 
 public class HouseView extends Page {
 
-    private Player player;
-
-    private GameView view;
     private boolean lampOpen;
 
     private MyImage imgGoDown;
@@ -20,9 +17,7 @@ public class HouseView extends Page {
     private MyImage imgTable;
     private MyImage imgFrame;
 
-    public HouseView(Player player, GameView view) {
-        this.view = view;
-        this.player = player;
+    public HouseView() {
 
         imgGoDown = new MyImage("arrowDown.png");
         imgGoDown.setSize(imgGoDown.getWidth() / 4, imgGoDown.getHeight() / 4);
@@ -59,7 +54,7 @@ public class HouseView extends Page {
         g2d.drawImage(imgLamp.loadImage(), imgLamp.getX(), imgLamp.getY(), imgLamp.getWidth(), imgLamp.getHeight(), null);
         g2d.setFont(new Font("Ayutaya", Font.PLAIN, 28));
         g2d.drawString("DAY", 395, 270);
-        g2d.drawString(player.getDayInFarm() + "", 415, 300);
+        g2d.drawString(GameController.player.getDayInFarm() + "", 415, 300);
         g2d.drawImage(imgTable.loadImage(), imgTable.getX(), imgTable.getY(), imgTable.getWidth(), imgTable.getHeight(), null);
 
     }

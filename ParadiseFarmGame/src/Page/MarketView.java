@@ -7,10 +7,6 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 
 public class MarketView extends Page {
-
-    private Player player;
-
-    private GameView view;
     
     private MyImage imgGoLeft;
     private MyImage imgbgShop;
@@ -23,9 +19,7 @@ public class MarketView extends Page {
 
     private MyImage imgPlayerCard;
 
-    public MarketView(Player player, GameView view) {
-        this.view = view;
-        this.player = player;
+    public MarketView() {
 
         imgGoLeft = new MyImage("arrowLeft.png");
         imgGoLeft.setSize(imgGoLeft.getWidth() / 4, imgGoLeft.getHeight() / 4);
@@ -83,10 +77,10 @@ public class MarketView extends Page {
         g2d.drawImage(imgPlayerCard.loadImage(), imgPlayerCard.getX(), imgPlayerCard.getY(), imgPlayerCard.getWidth(), imgPlayerCard.getHeight(), null);
         g2d.setFont(new Font("Ayutaya", Font.PLAIN, 27));
         g2d.setColor(Color.BLACK);
-        g2d.drawString("Name: " + player.getName(), imgPlayerCard.getX() + 125, imgPlayerCard.getY() + 50);
+        g2d.drawString("Name: " + GameController.player.getName(), imgPlayerCard.getX() + 125, imgPlayerCard.getY() + 50);
         g2d.drawString("Sex: Female", imgPlayerCard.getX() + 125, imgPlayerCard.getY() + 115);
-        g2d.drawString("Day: " + player.getDayInFarm(), imgPlayerCard.getX() + 20, imgPlayerCard.getY() + 175);
-        g2d.drawString("Money: " + player.showMoney(), imgPlayerCard.getX() + 125, imgPlayerCard.getY() + 175);
+        g2d.drawString("Day: " + GameController.player.getDayInFarm(), imgPlayerCard.getX() + 20, imgPlayerCard.getY() + 175);
+        g2d.drawString("Money: " + GameController.player.showMoney(), imgPlayerCard.getX() + 125, imgPlayerCard.getY() + 175);
     }
 
     public MyImage getImgGoLeft() {

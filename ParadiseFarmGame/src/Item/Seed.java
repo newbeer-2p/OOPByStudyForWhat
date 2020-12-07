@@ -1,8 +1,6 @@
 package Item;
 
-import java.io.Serializable;
-
-public class Seed extends Item implements Serializable {
+public class Seed extends Item{
 
     private int dayToGrow;
     private int levelMax;

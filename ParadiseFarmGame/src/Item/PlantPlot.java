@@ -1,9 +1,8 @@
 package Item;
 
 import Main.MyImage;
-import java.io.Serializable;
 
-public class PlantPlot implements Serializable {
+public class PlantPlot{
 
     protected Seed seed;
     protected int numId;

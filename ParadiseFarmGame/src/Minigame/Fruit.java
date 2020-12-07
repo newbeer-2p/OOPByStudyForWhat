@@ -1,11 +1,7 @@
 package Minigame;
 
-import Main.MyImage;
-import Main.GameView;
-import Page.*;
-import javax.swing.*;
+import Main.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class Fruit implements Runnable {
 
@@ -46,7 +42,7 @@ public class Fruit implements Runnable {
                     p.addFruitCollect(this);
                 }
                 img.setY(img.getY()+movement); // ขยับแกน Y ให้มันลงมา
-                p.getView().repaint(); // ให้วาดใหม่
+                GameController.view.repaint(); // ให้วาดใหม่
                 Thread.sleep(50);
             } catch (InterruptedException ex) {
 

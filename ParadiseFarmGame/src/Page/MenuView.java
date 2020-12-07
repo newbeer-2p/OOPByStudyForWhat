@@ -6,15 +6,13 @@ import java.awt.*;
 
 public class MenuView extends Page implements Runnable {
     
-    private GameView view;
     
     private MyImage imgBackground;
     private MyImage imgNew;
     private MyImage imgLogo;
     private Thread t;
 
-    public MenuView(Player player, GameView view) {
-        this.view = view;
+    public MenuView() {
         
         imgBackground = new MyImage("/background/menu.png");
         imgBackground.setSize(800, 800);
@@ -27,11 +25,14 @@ public class MenuView extends Page implements Runnable {
     }
 
     public void paint(Graphics2D g2d) {
-
         g2d.drawImage(imgBackground.loadImage(), imgBackground.getX(), imgBackground.getY(), imgBackground.getWidth(), imgBackground.getHeight(), null);
         g2d.drawImage(imgNew.loadImage(), imgNew.getX(), imgNew.getY(), imgNew.getWidth(), imgNew.getHeight(), null);
         g2d.drawImage(imgLogo.loadImage(), imgLogo.getX(), imgLogo.getY(), imgLogo.getWidth(), imgLogo.getHeight(), null);
-        view.repaint();
+        g2d.setFont(new Font("Ayutaya", Font.BOLD, 20));
+        g2d.drawString("Last history: ", 0, 25);
+        g2d.drawString("Day: "+GameController.model.getHistory()[0], 0, 50);
+        g2d.drawString("Money: "+GameController.model.getHistory()[1], 0, 75);
+        GameController.view.repaint();
     }
 
     @Override

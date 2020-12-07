@@ -11,20 +11,17 @@ public class GameView extends JPanel {
     public final static int WIDTH = 800;
     public final static int HEIGHT = 800;
     
-    private Player player;
-
     private JFrame frame;
-    private Graphics2D g2d;
     private String pageNow = "MenuView";
     private Page page;
 
     private MyImage icon;
 
-    public GameView(Player player) {
+    public GameView() {
         frame = new JFrame("Paradise Farm");
 
         frame.add(this);
-        page = new MenuView(player, this);
+        page = new MenuView();
 
         icon = new MyImage("fertilizer.png");
 
@@ -40,16 +37,8 @@ public class GameView extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g2d = (Graphics2D) g;
+        Graphics2D g2d = (Graphics2D) g;
         page.paint(g2d);
-    }
-
-    public Graphics2D getG2d() {
-        return g2d;
-    }
-
-    public void setG2d(Graphics2D g2d) {
-        this.g2d = g2d;
     }
 
     public String getPageNow() {

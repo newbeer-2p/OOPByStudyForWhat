@@ -1,9 +1,7 @@
 package Minigame;
 
-import Main.MyImage;
-import Main.GameView;
+import Main.*;
 import java.awt.*;
-import Page.*;
 
 public class Worm implements Runnable {
 
@@ -25,7 +23,7 @@ public class Worm implements Runnable {
     public void run() {
         while (!p.isGameOver()) {
             try {
-                p.getView().repaint();
+                GameController.view.repaint();
                 Thread.sleep(50);
             } catch (InterruptedException ex) {
             }
