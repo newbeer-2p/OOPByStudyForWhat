@@ -40,7 +40,6 @@ public class PlantPlot{
         if (watering && seed != null) {
             days++;
             if (!canGet && days == seed.getDayToGrow()) {
-                System.out.println(canGet);
                 canGet = true;
                 level++;
 

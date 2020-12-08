@@ -55,7 +55,6 @@ public class GameController implements MouseListener, MouseMotionListener, Windo
         if (view.getPageNow().equals("MenuView")) {
             MenuView page = (MenuView) view.getPage();
             if (mouseBounds.intersects(page.getImgNew().getBounds())) {
-                System.out.println(mouseBounds.intersects(page.getImgNew().getBounds()));
                 view.setPageNow("NewGameView");
                 updatePage();
             }
@@ -74,15 +73,15 @@ public class GameController implements MouseListener, MouseMotionListener, Windo
                 view.setPageNow("HouseView");
                 updatePage();
             } else if (mouseBounds.intersects(page.getImgGoLeft().getBounds())) {
-                int randomEvent = (int) (Math.random() * 3);
+                int randomEvent = (int) (Math.random() * 7);
                 if (!player.isPlayEvent()) {
                     player.setPlayEvent(true);
-                    if (randomEvent == 0) {
-                        view.setPageNow("FarmView");
-                    } else if (randomEvent == 1) {
+                    if (randomEvent == 1) {
                         view.setPageNow("GetFruitGameView");
                     } else if (randomEvent == 2) {
                         view.setPageNow("CatchWormGameView");
+                    } else {
+                        view.setPageNow("FarmView");
                     }
                 } else {
                     view.setPageNow("FarmView");
@@ -125,7 +124,8 @@ public class GameController implements MouseListener, MouseMotionListener, Windo
             if (mouseBounds.intersects(page.getImgGoRight().getBounds())) {
                 view.setPageNow("FrontHouseView");
                 updatePage();
-            } else if (!page.isUseWateringCan() && !page.isUseSeedRadish() && !page.isUseSeedCarrot() && !page.isUseSeedTomato() && !page.isUseHand()) {
+            } else if (!page.isUseWateringCan() && !page.isUseSeedRadish()
+                    && !page.isUseSeedCarrot() && !page.isUseSeedTomato() && !page.isUseHand()) {
                 if (mouseBounds.intersects(page.getImgWateringCan().getBounds())) {
                     page.setUseWateringCan(true);
                 } else if (mouseBounds.intersects(page.getImgHand().getBounds())) {
@@ -153,7 +153,8 @@ public class GameController implements MouseListener, MouseMotionListener, Windo
 
                 page.setUseSeedTomato(false);
                 page.getImgSeedTomato().setLocation(GameView.WIDTH - 480, GameView.HEIGHT - 120);
-            } else if (page.isUseWateringCan() || page.isUseSeedRadish() || page.isUseSeedCarrot() || page.isUseSeedTomato() || page.isUseHand()) {
+            } else if (page.isUseWateringCan() || page.isUseSeedRadish()
+                    || page.isUseSeedCarrot() || page.isUseSeedTomato() || page.isUseHand()) {
                 for (int i = 0; i < player.getMyPlot().length; i++) {
                     if (mouseBounds.intersects(player.getMyPlot()[i].getImg().getBounds())) {
                         PlantPlot plot = player.getMyPlot()[i];
@@ -172,17 +173,23 @@ public class GameController implements MouseListener, MouseMotionListener, Windo
                                     player.setMoney(player.getMoney() + 400);
                                 }
                                 plot.setSeed(null);
+                                plot.setDays(0);
+                                plot.setLevel(0);
+                                plot.setCanGet(false);
 
                             }
-                        } else if (mouseBounds.intersects(page.getImgSeedRadish().getBounds()) && player.getInventorySeed()[0].getNumItem() != 0) {
+                        } else if (mouseBounds.intersects(page.getImgSeedRadish().getBounds())
+                                && player.getInventorySeed()[0].getNumItem() != 0) {
                             if (plot.addSeed("radish")) {
                                 player.getInventorySeed()[0].useSeed();
                             }
-                        } else if (mouseBounds.intersects(page.getImgSeedCarrot().getBounds()) && player.getInventorySeed()[1].getNumItem() != 0) {
+                        } else if (mouseBounds.intersects(page.getImgSeedCarrot().getBounds())
+                                && player.getInventorySeed()[1].getNumItem() != 0) {
                             if (plot.addSeed("carrot")) {
                                 player.getInventorySeed()[1].useSeed();
                             }
-                        } else if (mouseBounds.intersects(page.getImgSeedTomato().getBounds()) && player.getInventorySeed()[2].getNumItem() != 0) {
+                        } else if (mouseBounds.intersects(page.getImgSeedTomato().getBounds())
+                                && player.getInventorySeed()[2].getNumItem() != 0) {
                             if (plot.addSeed("tomato")) {
                                 player.getInventorySeed()[2].useSeed();
                             }
@@ -263,7 +270,7 @@ public class GameController implements MouseListener, MouseMotionListener, Windo
             view.repaint();
         }
     }
-    
+
     @Override
     public void windowClosing(WindowEvent we) {
         model.saveData(player);
@@ -292,7 +299,7 @@ public class GameController implements MouseListener, MouseMotionListener, Windo
     @Override
     public void windowDeactivated(WindowEvent we) {
     }
-    
+
     @Override
     public void mousePressed(MouseEvent me) {
 
